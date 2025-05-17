@@ -1,76 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, register } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isForgotPassword, setIsForgotPassword] = useState(false);
-  const [isSignup, setIsSignup] = useState(false); // Toggle between Login and Signup
+  const [isSignup, setIsSignup] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
-  const [otp, setOtp] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState(""); // Simulated OTP
-  const [isOtpSent, setIsOtpSent] = useState(false); // Track if OTP is sent
-
-  // Simulated user data (replace with actual backend logic)
-  const userData = {
-    email: "user@example.com",
-    password: "password123",
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   // Handle login submission
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === userData.email && password === userData.password) {
-      setMessage(""); // Clear any previous messages
-      navigate("/DentalForm");
-    } else {
-      setMessage("Invalid email or password. Please try again.");
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      await login(email, password);
+      navigate("/dashboard"); // Changed from /DentalForm to /dashboard
+    } catch (error) {
+      setMessage(error.message || "Invalid email or password. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // Handle "Forgot Password" functionality
   const handleForgotPassword = (e) => {
     e.preventDefault();
-    if (email === userData.email) {
-      // Simulate sending the password to the provided email
-      alert(`Your password has been sent to ${email}.`);
-      setIsForgotPassword(false); // Reset back to login state
-    } else {
-      setMessage("Email not found. Please try again.");
-    }
+    setMessage("Password reset functionality will be implemented in future updates.");
   };
 
   // Handle Signup submission
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (!isOtpSent) {
-      // Simulate sending OTP
-      const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
-      setGeneratedOtp(otp);
-      setIsOtpSent(true);
-      alert(`OTP sent to ${email}.`);
-    } else {
-      // Verify OTP
-      if (otp === generatedOtp) {
-        alert("Registration successful! You can now login.");
-        setIsSignup(false); // Go back to login
-        setMessage(""); // Clear any messages
-      } else {
-        setMessage("Invalid OTP. Please try again.");
-      }
-    }
-  };
+    setIsLoading(true);
+    setMessage("");
 
-  // Handle resend OTP
-  const handleResendOtp = () => {
-    const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate new OTP
-    setGeneratedOtp(otp);
-    alert(`New OTP sent to ${email}.`);
+    try {
+      await register({
+        name,
+        email,
+        password,
+        phoneNumber,
+        gender
+      });
+      navigate("/dashboard"); // Changed from /DentalForm to /dashboard
+    } catch (error) {
+      setMessage(error.message || "Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -98,7 +85,9 @@ const Login = () => {
                 required
               />
             </label>
-            <button type="submit">Login</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
             <p
               className="forgot-password-link"
               onClick={() => setIsForgotPassword(true)}
@@ -109,7 +98,7 @@ const Login = () => {
               className="signup-link"
               onClick={() => {
                 setIsSignup(true);
-                setMessage(""); // Clear any messages
+                setMessage("");
               }}
             >
               Don't have an account? Sign Up
@@ -134,7 +123,7 @@ const Login = () => {
               className="back-to-login-link"
               onClick={() => {
                 setIsForgotPassword(false);
-                setMessage(""); // Clear any messages
+                setMessage("");
               }}
             >
               Back to Login
@@ -173,6 +162,15 @@ const Login = () => {
             />
           </label>
           <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <label>
             Gender:
             <select
               value={gender}
@@ -185,30 +183,14 @@ const Login = () => {
               <option value="other">Other</option>
             </select>
           </label>
-          {isOtpSent && (
-            <label>
-              OTP:
-              <input
-                type="text"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </label>
-          )}
-          <button type="submit">
-            {isOtpSent ? "Verify OTP" : "Send OTP"}
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Signing up..." : "Sign Up"}
           </button>
-          {isOtpSent && (
-            <p className="resend-otp-link" onClick={handleResendOtp}>
-              Resend OTP
-            </p>
-          )}
           <p
             className="back-to-login-link"
             onClick={() => {
               setIsSignup(false);
-              setMessage(""); // Clear any messages
+              setMessage("");
             }}
           >
             Back to Login

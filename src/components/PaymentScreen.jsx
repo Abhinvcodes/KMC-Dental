@@ -1,7 +1,7 @@
 // src/components/PaymentScreen.js
 import React from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import DentalForm from './DentalForm'; 
+import DentalForm from './DentalForm';
 
 const PaymentScreen = () => {
   const location = useLocation();
@@ -13,6 +13,35 @@ const PaymentScreen = () => {
   const handleProceedAfterPayment = () => {
     navigate("/DentalForm", { state: { dentist } });
     // Redirect to DentalForm
+  };
+
+  const handleCompletePayment = async () => {
+    try {
+      // Example payment details
+      const paymentDetails = {
+        method: 'bank_transfer',
+        date: new Date().toISOString(),
+        amount: 50.00 // Example amount
+      };
+
+      // Create appointment first
+      const appointmentData = {
+        dentistId: dentist.id,
+        appointmentDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // Example: 1 week from now
+        reason: 'Online consultation'
+      };
+
+      const appointment = await appointmentAPI.createAppointment(appointmentData);
+
+      // Then process payment for that appointment
+      await appointmentAPI.processPayment(appointment.id, paymentDetails);
+
+      // Now redirect to dental form
+      navigate("/DentalForm", { state: { dentist } });
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('There was an error processing your payment. Please try again.');
+    }
   };
 
   return (
@@ -42,7 +71,7 @@ const PaymentScreen = () => {
       {/* Image Section */}
       <div className="hidden md:block max-w-md w-full mt-8 md:mt-0">
         <img
-        // src="https://via.placeholder.com/500" // Replace with your image URL
+          // src="https://via.placeholder.com/500" // Replace with your image URL
           alt="Payment Illustration"
           className="rounded-lg shadow-lg"
         />

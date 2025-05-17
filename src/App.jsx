@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Front from './components/Front';
 import Cavity from './components/Cavity';
 import Toothache from './components/Toothache';
@@ -24,91 +24,56 @@ import Hypoplasia from './components/Hypoplasia';
 import DentalForm from './components/DentalForm';
 import Login from './components/Login';
 import DentistConsultationPage from './components/DentistConsultationPage';
-import PaymentScreen from './components/PaymentScreen';
-
+import ProtectedRoute from './components/ProtectedRoute';
+import UserDashboard from './components/UserDashboard';
 
 const App = () => {
   return (
     <Router>
-    <div>
-      <h1 className="dental-care-heading">KMC Dental Care</h1>
-      <Routes>
-
-      <Route path="/" element={<Front />} /> {/* Use your component here */}
-      
-      <Route path="/Cavity" element={<Cavity />} />
-
-      
-      <Route path="/Toothache" element={<Toothache /> } />
-
-      
-      <Route path="/ToothSensitivity" element={<ToothSensitivity /> } />
-
-      
-      <Route path="/Gum" element={<Gum /> } />  
-
-      
-      <Route path="/Abscess" element={<Abscess /> } /> 
-
-      
-      <Route path="/Fractures" element={<Fractures />} /> 
-
-      
-      <Route path="/Erosion" element={<Erosion /> } />
-
-      
-      <Route path="/Grinding" element={<Grinding /> } /> 
-
-      
-      <Route path="/ImpactedWisdom" element={<ImpactedWisdom /> } /> 
-
-      
-      <Route path="/Malocclusion" element={<Malocclusion />} />  
-
-      
-      <Route path="/BrokenTeeth" element={<BrokenTeeth /> } />
-
-      
-      <Route path="/Ulcers" element={<Ulcers />} /> 
-
-      
-      <Route path="/Stained" element={<Stained /> } />
-
-      
-      <Route path="/Xerostomia" element={<Xerostomia />} />   
-
-      
-      <Route path="/Infection" element={<Infection />} />  
-
-      
-      <Route path="/LooseTeeth" element={<LooseTeeth /> } />
-
-      
-      <Route path="/DentalTrauma" element={<DentalTrauma />} />  
-
-      
-      <Route path="/RootCanal" element={<RootCanal /> } />
-
-      
-      <Route path="/TMJDisorders" element={<TMJDisorders /> } />
-
-      
-      <Route path="/Hypoplasia" element={<Hypoplasia />} />
-
-      <Route path="/Login" element={<Login />} />
-      
-      <Route path="/DentalForm" element={<DentalForm />} />
-
-      <Route path="/DentistConsultationPage" element={<DentistConsultationPage />} />
-      <Route path="/PaymentScreen" element={<PaymentScreen />} />
-     
-
-
-      </Routes>
-    </div>
+      <div>
+        <h1 className="dental-care-heading">KMC Dental Care</h1>
+        <Routes>
+          <Route path="/" element={<Front />} />
+          <Route path="/Cavity" element={<Cavity />} />
+          <Route path="/Toothache" element={<Toothache />} />
+          <Route path="/ToothSensitivity" element={<ToothSensitivity />} />
+          <Route path="/Gum" element={<Gum />} />
+          <Route path="/Abscess" element={<Abscess />} />
+          <Route path="/Fractures" element={<Fractures />} />
+          <Route path="/Erosion" element={<Erosion />} />
+          <Route path="/Grinding" element={<Grinding />} />
+          <Route path="/ImpactedWisdom" element={<ImpactedWisdom />} />
+          <Route path="/Malocclusion" element={<Malocclusion />} />
+          <Route path="/BrokenTeeth" element={<BrokenTeeth />} />
+          <Route path="/Ulcers" element={<Ulcers />} />
+          <Route path="/Stained" element={<Stained />} />
+          <Route path="/Xerostomia" element={<Xerostomia />} />
+          <Route path="/Infection" element={<Infection />} />
+          <Route path="/LooseTeeth" element={<LooseTeeth />} />
+          <Route path="/DentalTrauma" element={<DentalTrauma />} />
+          <Route path="/RootCanal" element={<RootCanal />} />
+          <Route path="/TMJDisorders" element={<TMJDisorders />} />
+          <Route path="/Hypoplasia" element={<Hypoplasia />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/DentalForm" element={
+            <ProtectedRoute>
+              <DentalForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/DentistConsultationPage" element={
+            <ProtectedRoute>
+              <DentistConsultationPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </div>
     </Router>
   );
-  
 };
 
 export default App;
