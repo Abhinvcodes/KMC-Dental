@@ -20,6 +20,7 @@ const syncDatabase = async () => {
         console.log('✅ Database models synced successfully');
     } catch (error) {
         console.error('❌ Error syncing database models:', error);
+        console.error('Details: ', error.message);
     }
 };
 
