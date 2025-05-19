@@ -70,7 +70,6 @@ app.get('/api/admin', protect, admin, (req, res) => {
 });
 
 // Synchronize database
-const sequelize = require('./config/db');
 sequelize.sync({ alter: true }).then(() => {
     console.log('Database synchronized');
 });
