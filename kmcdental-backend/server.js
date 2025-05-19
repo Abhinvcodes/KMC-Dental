@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-
+const sequelize = require('./config/db');
 const { testConnection } = require('./config/db');
 const { syncDatabase } = require('./models/index');
 const { protect, admin } = require('./middleware/authMiddleware');
@@ -24,7 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Test database connection
-testConnection();
+sequelize.authenticate()
+    .then(() => {
+        console.log('Database connection established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 
 // Sync models with database
 syncDatabase();
