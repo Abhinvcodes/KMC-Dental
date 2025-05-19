@@ -68,6 +68,9 @@ const UserDashboard = () => {
             <div className="dashboard-header">
                 <h1>My Dashboard</h1>
                 <div className="dashboard-actions">
+                    <button onClick={() => navigate('/')} className="home-btn">
+                        Go to Home
+                    </button>
                     <button onClick={() => navigate('/DentalForm')} className="new-consultation-btn">
                         New Consultation
                     </button>
