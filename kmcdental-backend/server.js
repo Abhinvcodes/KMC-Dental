@@ -63,6 +63,12 @@ app.get('/api/admin', protect, admin, (req, res) => {
     res.json({ message: 'Admin access granted' });
 });
 
+// Synchronize database
+const sequelize = require('./config/db');
+sequelize.sync({ alter: true }).then(() => {
+    console.log('Database synchronized');
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
