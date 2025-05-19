@@ -54,7 +54,8 @@ const Consultation = sequelize.define('consultations', {
         }
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    tableName: 'consultations'
 });
 
 module.exports = Consultation;

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-const User = sequelize.define('users', {
+const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -48,6 +48,7 @@ const User = sequelize.define('users', {
     }
 }, {
     timestamps: true,
+    tableName: 'users', // Explicitly tell Sequelize to use the lowercase table
     hooks: {
         beforeCreate: async (user) => {
             if (user.password) {

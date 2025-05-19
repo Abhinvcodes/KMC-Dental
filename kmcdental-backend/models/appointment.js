@@ -39,7 +39,8 @@ const Appointment = sequelize.define('appointments', {
         allowNull: true
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    tableName: 'appointments'
 });
 
 module.exports = Appointment;
