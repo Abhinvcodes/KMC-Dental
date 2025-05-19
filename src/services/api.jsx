@@ -17,7 +17,7 @@ const createAuthHeader = () => {
 export const userAPI = {
     register: async (userData) => {
         try {
-            const response = await axios.post(`${API_URL}/users/register`, userData);
+            const response = await axios.post(`${API_URL}/api/users/register`, userData);
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data));
@@ -30,7 +30,7 @@ export const userAPI = {
 
     login: async (email, password) => {
         try {
-            const response = await axios.post(`${API_URL}/users/login`, { email, password });
+            const response = await axios.post(`${API_URL}/api/users/login`, { email, password });
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data));
@@ -43,7 +43,7 @@ export const userAPI = {
 
     getProfile: async () => {
         try {
-            const response = await axios.get(`${API_URL}/users/profile`, createAuthHeader());
+            const response = await axios.get(`${API_URL}/api/users/profile`, createAuthHeader());
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Failed to get profile' };
@@ -68,7 +68,7 @@ export const consultationAPI = {
                 }
             };
 
-            const response = await axios.post(`${API_URL}/consultations`, formData, config);
+            const response = await axios.post(`${API_URL}/api/consultations`, formData, config);
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Failed to create consultation' };
@@ -77,7 +77,7 @@ export const consultationAPI = {
 
     getUserConsultations: async () => {
         try {
-            const response = await axios.get(`${API_URL}/consultations`, createAuthHeader());
+            const response = await axios.get(`${API_URL}/api/consultations`, createAuthHeader());
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Failed to get consultations' };
@@ -102,7 +102,7 @@ export const appointmentAPI = {
 
     getUserAppointments: async () => {
         try {
-            const response = await axios.get(`${API_URL}/appointments`, createAuthHeader());
+            const response = await axios.get(`${API_URL}/api/appointments`, createAuthHeader());
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Failed to get appointments' };
