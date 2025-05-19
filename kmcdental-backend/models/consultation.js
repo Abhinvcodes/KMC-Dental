@@ -6,7 +6,7 @@ const Consultation = sequelize.define('Consultation', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Users',
+            model: 'users',
             key: 'id'
         }
     },
@@ -49,7 +49,7 @@ const Consultation = sequelize.define('Consultation', {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-            model: 'Users',
+            model: 'users',
             key: 'id'
         }
     }
