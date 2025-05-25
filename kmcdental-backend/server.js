@@ -74,22 +74,7 @@ sequelize.sync({ alter: true }).then(() => {
     console.log('Database synchronized');
 });
 
-// Make sure to wait for sync before starting server
-const startServer = async () => {
-    try {
-        // Sync database first
-        await syncDatabase();
-
-        // Then start server
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
-    } catch (error) {
-        console.error('Failed to start server:', error);
-    }
-};
-
-// Add before starting server
+// Add this function to check database tables
 const checkTables = async () => {
     try {
         const [results] = await sequelize.query(`
@@ -103,7 +88,23 @@ const checkTables = async () => {
     }
 };
 
-// Call this before syncDatabase
-await checkTables();
+// Wrap server startup in an async function
+const startServer = async () => {
+    try {
+        // Check tables first (diagnostic)
+        await checkTables();
 
+        // Then sync database
+        await syncDatabase();
+
+        // Start the server after database operations complete
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error);
+    }
+};
+
+// Call the async function to start everything
 startServer();
