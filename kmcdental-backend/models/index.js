@@ -16,7 +16,7 @@ Appointment.belongsTo(User, { foreignKey: 'dentistId', as: 'Dentist' });
 // Sync all models with database
 const syncDatabase = async () => {
     try {
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ force: true });
         console.log('✅ Database models synced successfully');
     } catch (error) {
         console.error('❌ Error syncing database models:', error);
