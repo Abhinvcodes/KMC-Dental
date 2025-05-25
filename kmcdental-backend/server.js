@@ -32,9 +32,6 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', err);
     });
 
-// Sync models with database
-syncDatabase();
-
 app.use('/api/users', userRoutes);
 app.use('/api/consultations', consultationRoutes);
 app.use('/api/appointments', appointmentRoutes);
@@ -69,10 +66,38 @@ app.get('/api/admin', protect, admin, (req, res) => {
     res.json({ message: 'Admin access granted' });
 });
 
-// Synchronize database
-sequelize.sync({ alter: true }).then(() => {
-    console.log('Database synchronized');
-});
+// Remove these two sync calls - they're causing problems
+// REMOVE: syncDatabase();
+// REMOVE: sequelize.sync({ alter: true }).then(() => {
+//    console.log('Database synchronized');
+// });
+
+// Keep only the startServer function that does everything in the right order
+const startServer = async () => {
+    try {
+        // Connect to database first
+        await sequelize.authenticate();
+        console.log('Database connection established successfully.');
+
+        // Check tables BEFORE sync
+        await checkTables();
+
+        // Force create the User table first (just this once)
+        await sequelize.models.User.sync({ force: true });
+        console.log('User table created');
+
+        // Then sync all other models
+        await syncDatabase();
+
+        // Start the server after database operations complete
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error.message);
+        console.error('Error details:', error.parent?.message || error);
+    }
+};
 
 // Add this function to check database tables
 const checkTables = async () => {
@@ -85,24 +110,6 @@ const checkTables = async () => {
         console.log('Available tables:', results);
     } catch (error) {
         console.error('Error checking tables:', error);
-    }
-};
-
-// Wrap server startup in an async function
-const startServer = async () => {
-    try {
-        // Check tables first (diagnostic)
-        await checkTables();
-
-        // Then sync database
-        await syncDatabase();
-
-        // Start the server after database operations complete
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
-    } catch (error) {
-        console.error('Failed to start server:', error);
     }
 };
 
