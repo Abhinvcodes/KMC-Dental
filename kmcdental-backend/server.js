@@ -74,7 +74,19 @@ sequelize.sync({ alter: true }).then(() => {
     console.log('Database synchronized');
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Make sure to wait for sync before starting server
+const startServer = async () => {
+    try {
+        // Sync database first
+        await syncDatabase();
+
+        // Then start server
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error);
+    }
+};
+
+startServer();
