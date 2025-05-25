@@ -49,6 +49,7 @@ const User = sequelize.define('User', {
 }, {
     timestamps: true,
     tableName: 'users', // Explicitly tell Sequelize to use the lowercase table
+    schema: 'public',
     hooks: {
         beforeCreate: async (user) => {
             if (user.password) {

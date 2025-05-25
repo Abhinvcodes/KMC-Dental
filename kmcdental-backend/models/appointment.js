@@ -40,6 +40,7 @@ const Appointment = sequelize.define('Appointment', {
     }
 }, {
     timestamps: true,
+    schema: 'public',
     tableName: 'appointments'
 });
 

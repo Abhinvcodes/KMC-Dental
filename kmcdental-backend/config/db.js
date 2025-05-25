@@ -10,7 +10,8 @@ const sequelize = process.env.DATABASE_URL
                 require: true,
                 rejectUnauthorized: false
             }
-        }
+        },
+        schema: 'public'
     })
     : new Sequelize(
         process.env.DB_NAME,

@@ -55,6 +55,7 @@ const Consultation = sequelize.define('Consultation', {
     }
 }, {
     timestamps: true,
+    schema: 'public',
     tableName: 'consultations'
 });
 

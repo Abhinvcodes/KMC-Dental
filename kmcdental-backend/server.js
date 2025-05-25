@@ -89,4 +89,21 @@ const startServer = async () => {
     }
 };
 
+// Add before starting server
+const checkTables = async () => {
+    try {
+        const [results] = await sequelize.query(`
+      SELECT table_schema, table_name 
+      FROM information_schema.tables 
+      WHERE table_catalog = current_database()
+    `);
+        console.log('Available tables:', results);
+    } catch (error) {
+        console.error('Error checking tables:', error);
+    }
+};
+
+// Call this before syncDatabase
+await checkTables();
+
 startServer();
