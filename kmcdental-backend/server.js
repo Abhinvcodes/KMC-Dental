@@ -82,8 +82,8 @@ const startServer = async () => {
         // Check tables BEFORE sync
         await checkTables();
 
-        // Force create the User table first (just this once)
-        await sequelize.models.User.sync({ force: true });
+        // switched to alter: true
+        await sequelize.models.User.sync({ alter: true });
         console.log('User table created');
 
         // Then sync all other models
