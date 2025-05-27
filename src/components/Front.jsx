@@ -150,8 +150,8 @@ const Front = () => {
             <li className="nav-item" onClick={() => navigate('/Login')}>Login</li>
           )}
         </ul>
-        <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-          {darkMode ? "⚪🌞" : "⚫🌙"}
+           <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+          {darkMode ? "⚪" : "⚫"}
         </button>
       </nav>
 
@@ -173,21 +173,23 @@ const Front = () => {
 
       {/* Why Choose Us Section */}
       <section className="why-choose-us">
-        <h2>Why Choose Us?</h2>
-        <div className="testimonials-carousel">
-          <div className="testimonial">
-            <p>"Amazing service! Highly recommended."</p>
-            {/*   <span>- John Doe</span>*/}
+        <h2>Why Trust DentalCare+?</h2>
+        <div className="features-grid">
+          <div className="feature-card">
+            <span role="img" aria-label="Clock">⏰</span>
+            <h3>Convenient Booking</h3>
+            <p>Schedule appointments anytime, anywhere.</p>
           </div>
-          <div className="testimonial">
-            <p>"The doctors are very professional and caring."</p>
-            {/*  <span>- Jane Smith</span>*/}
+          <div className="feature-card">
+            <span role="img" aria-label="Dentist">👩‍⚕️</span>
+            <h3>Expert Dentists</h3>
+            <p>Consult with certified dental professionals.</p>
           </div>
-        </div>
-        <div className="trust-badges">
-          <span>🏥 ISO Certified</span>
-          <span>🔒 HIPAA Compliant</span>
-          <span>💻 Secure Data Encryption</span>
+          <div className="feature-card">
+            <span role="img" aria-label="Shield">🔒</span>
+            <h3>Secure & Private</h3>
+            <p>Your data is protected with top-tier encryption.</p>
+          </div>
         </div>
       </section>
 
@@ -195,83 +197,83 @@ const Front = () => {
       <section id="key-services" className="key-services">
         <h2>Common Dental Issues</h2>
         <div className="services-grid">
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Cavities (Dental Caries)</h3>
             <button onClick={handleCavitiesClick}>Go to Cavities Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Toothache</h3>
             <button onClick={handleToothacheClick}>Go to Toothache Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Sensitivity</h3>
             <button onClick={handleToothSensitivityClick}>Go to Tooth Sensitivity Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Gum Disease (Periodontal Disease)</h3>
             <button onClick={handleGumClick}>Go to Gum Disease Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Abscess</h3>
             <button onClick={handleAbscessClick}>Go to Tooth Abscess Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Fractures (Cracked Tooth)</h3>
             <button onClick={handleFracturesClick}>Go to Tooth Fractures Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Erosion</h3>
             <button onClick={handleErosionClick}>Go to Tooth Erosion Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Teeth Grinding (Bruxism)</h3>
             <button onClick={handleGrindingClick}>Go to Bruxism Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Impacted Wisdom Teeth</h3>
             <button onClick={handleImpactedWisdomClick}>Go to Impacted Wisdom Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Malocclusion (Misaligned Teeth)</h3>
             <button onClick={handleMalocclusionClick}>Go to Malocclusion Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Chipped or Broken Teeth</h3>
             <button onClick={handleBrokenTeethClick}>Go to Broken Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Oral Ulcers or Sores</h3>
             <button onClick={handleUlcersClick}>Go to Sores Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Stained or Discolored Teeth</h3>
             <button onClick={handleStainedClick}>Go to Discolored Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Dry Mouth (Xerostomia)</h3>
             <button onClick={handleXerostomiaClick}>Go to Xerostomia Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Infection</h3>
             <button onClick={handleInfectionClick}>Go to Tooth Infection Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Loose Teeth</h3>
             <button onClick={handleLooseTeethClick}>Go to Loose Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Dental Trauma</h3>
             <button onClick={handleDentalTraumaClick}>Go to Dental Trauma Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Root Canal Infections</h3>
             <button onClick={handleRootCanalClick}>Go to Root Canal Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>TMJ Disorders</h3>
             <button onClick={handleTMJDisordersClick}>Go to TMJ Disorders Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: 'orange', padding: '10px', borderRadius: '5px' }}>
+          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
             <h3>Enamel Hypoplasia</h3>
             <button onClick={handleHypoplasiaClick}>Go to Enamel Hypoplasia Page</button>
           </div>
