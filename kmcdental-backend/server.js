@@ -10,6 +10,8 @@ const userRoutes = require('./routes/userRoutes');
 const consultationRoutes = require('./routes/consultationRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const { Op } = require('sequelize');
+const http = require('http');
+const initSocket = require('./socket');
 
 // Initialize Express app
 const app = express();
@@ -72,6 +74,8 @@ app.get('/api/admin', protect, admin, (req, res) => {
 //    console.log('Database synchronized');
 // });
 
+const server = http.createServer(app);
+
 // Keep only the startServer function that does everything in the right order
 const startServer = async () => {
     try {
@@ -89,8 +93,10 @@ const startServer = async () => {
         // Then sync all other models
         await syncDatabase();
 
+        initSocket(server);
+
         // Start the server after database operations complete
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
     } catch (error) {

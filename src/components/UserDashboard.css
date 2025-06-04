@@ -216,3 +216,12 @@
 .home-btn:hover {
     background-color: #3e8e41;
 }
+
+.chat-btn{
+    border: 2px solid black;
+    background-color: #00BFFF;
+    cursor: pointer;
+    padding: 2px;
+    margin: 10px;
+    width: 20%;
+}
