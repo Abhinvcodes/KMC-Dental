@@ -48,7 +48,6 @@ const DentalForm = () => {
     setError('');
 
     try {
-      // Check if user is logged in (has token)
       const token = localStorage.getItem('token');
       if (!token) {
         setError('You must be logged in to submit a consultation');
@@ -56,25 +55,20 @@ const DentalForm = () => {
         return;
       }
 
-      // Create FormData object for file upload
       const submitData = new FormData();
 
-      // Add text fields
       Object.keys(formData).forEach(key => {
         submitData.append(key, formData[key]);
       });
 
-      // Add image files
       images.forEach(image => {
         submitData.append('images', image);
       });
 
-      // Submit the consultation
       await consultationAPI.createConsultation(submitData);
 
-      // Show success and redirect
       alert('Your consultation request has been submitted successfully!');
-      navigate('/');
+      navigate('/'); // Redirect to Front.jsx page
     } catch (error) {
       setError(error.message || 'Failed to submit consultation. Please try again.');
     } finally {
@@ -98,7 +92,6 @@ const DentalForm = () => {
       <p className="subheading">
         Simply complete the below form and attach a minimum of 3 clear photos as specified. Our Tooth Doctor Dentists will be in touch with feedback, advice, and options for you.
       </p>
-      <p className="note"></p>
 
       <form onSubmit={handleSubmit}>
         <div className="form-row">
@@ -146,7 +139,7 @@ const DentalForm = () => {
         <div className="form-group checkbox-group">
           <input type="checkbox" id="disclaimer" name="disclaimer" checked={disclaimer} onChange={() => setDisclaimer(!disclaimer)} required />
           <label htmlFor="disclaimer">
-            By submitting the above information, I understand that any advice or feedback received from Tooth Doctor is subject to a further clinic-based consultation.
+            By submitting the above information, I understand that any advice or feedback received from Dentist is subject to a further clinic-based consultation.
           </label>
         </div>
 

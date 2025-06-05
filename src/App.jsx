@@ -26,6 +26,11 @@ import Login from './components/Login';
 import DentistConsultationPage from './components/DentistConsultationPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserDashboard from './components/UserDashboard';
+import DoctorDashboard from "./components/DoctorDashboard";
+import ChatWindow from "./components/ChatWindow";
+import PaymentScreen from "./components/PaymentScreen";
+import AppointmentDetails from './components/AppointmentDetails';
+
 
 const App = () => {
   return (
@@ -55,20 +60,18 @@ const App = () => {
           <Route path="/TMJDisorders" element={<TMJDisorders />} />
           <Route path="/Hypoplasia" element={<Hypoplasia />} />
           <Route path="/Login" element={<Login />} />
+           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="/chat/:patientId" element={<ChatWindow />} />
+          <Route path="/PaymentScreen" element={<PaymentScreen />} />
+          <Route path="/AppointmentDetails" element={<AppointmentDetails />} />
           <Route path="/DentalForm" element={
-            <ProtectedRoute>
-              <DentalForm />
-            </ProtectedRoute>
+            <DentalForm />
           } />
           <Route path="/DentistConsultationPage" element={
-            <ProtectedRoute>
-              <DentistConsultationPage />
-            </ProtectedRoute>
+            <DentistConsultationPage />
           } />
           <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <UserDashboard />
-            </ProtectedRoute>
+             <UserDashboard />
           } />
         </Routes>
       </div>

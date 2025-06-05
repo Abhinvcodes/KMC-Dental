@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { consultationAPI, userAPI } from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
+
     const [consultations, setConsultations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -14,29 +14,50 @@ const UserDashboard = () => {
     const [userProfile, setUserProfile] = useState(null);
 
     useEffect(() => {
-        // Fetch user consultations when component mounts
-        const fetchConsultations = async () => {
+        // Simulate API delay and load hardcoded consultations
+        setTimeout(() => {
             try {
-                const data = await consultationAPI.getUserConsultations();
-                setConsultations(data);
+                const mockConsultations = [
+                    {
+                        id: 1,
+                        status: 'pending',
+                        createdAt: '2025-06-01T10:00:00Z',
+                        comments: 'Mild toothache in upper molars.',
+                        dentistFeedback: '',
+                        images: ['uploads/image1.jpg', 'uploads/image2.jpg', 'uploads/image3.jpg'],
+                    },
+                    {
+                        id: 2,
+                        status: 'reviewed',
+                        createdAt: '2025-05-28T14:30:00Z',
+                        comments: 'Swelling near gums.',
+                        dentistFeedback: 'Prescribed antibiotics. Please revisit after 5 days.',
+                        images: ['uploads/image4.jpg', 'uploads/image5.jpg', 'uploads/image6.jpg'],
+                    },
+                    {
+                        id: 3,
+                        status: 'rejected',
+                        createdAt: '2025-05-25T09:45:00Z',
+                        comments: '',
+                        dentistFeedback: 'Images not clear. Please resubmit.',
+                        images: ['uploads/image7.jpg', 'uploads/image8.jpg', 'uploads/image9.jpg'],
+                    }
+                ];
+                setConsultations(mockConsultations);
             } catch (err) {
-                setError(err.message || 'Failed to load consultations');
+                setError('Failed to load consultations');
             } finally {
                 setLoading(false);
             }
-        };
 
-        const fetchUserProfile = async () => {
-            try {
-                const profileData = await userAPI.getProfile();
-                setUserProfile(profileData);
-            } catch (err) {
-                console.error('Failed to load profile:', err);
-            }
-        };
-
-        fetchConsultations();
-        fetchUserProfile();
+            // Hardcoded user profile
+            setUserProfile({
+                name: 'Jane Doe',
+                email: 'jane@example.com',
+                phoneNumber: '1111111110',
+                gender: 'Female'
+            });
+        }, 1000);
     }, []);
 
     const handleLogout = () => {
@@ -71,7 +92,7 @@ const UserDashboard = () => {
                     <button onClick={() => navigate('/')} className="home-btn">
                         Go to Home
                     </button>
-                    <button onClick={() => navigate('/DentalForm')} className="new-consultation-btn">
+                    <button onClick={() => navigate('/DentistConsultationPage')} className="new-consultation-btn">
                         New Consultation
                     </button>
                     <button onClick={handleLogout} className="logout-btn">
@@ -98,7 +119,7 @@ const UserDashboard = () => {
             <div className="dashboard-content">
                 {activeTab === 'profile' && (
                     <div className="profile-section">
-                        <h2>Account Information</h2>
+                        <h2>Account Holder Information</h2>
                         <div className="profile-details">
                             <div className="profile-row">
                                 <span className="profile-label">Name:</span>
@@ -115,10 +136,6 @@ const UserDashboard = () => {
                             <div className="profile-row">
                                 <span className="profile-label">Gender:</span>
                                 <span className="profile-value">{userProfile?.gender || user?.gender}</span>
-                            </div>
-                            <div className="profile-row">
-                                <span className="profile-label">Account created:</span>
-                                <span className="profile-value">{userProfile?.createdAt ? formatDate(userProfile.createdAt) : 'N/A'}</span>
                             </div>
                         </div>
                     </div>
@@ -162,7 +179,7 @@ const UserDashboard = () => {
                                             <div className="consultation-images">
                                                 <h4>Your Uploaded Images:</h4>
                                                 <div className="image-gallery">
-                                                    {consultation.images?.map((img, index) => (
+                                                    {consultation.images.map((img, index) => (
                                                         <img
                                                             key={index}
                                                             src={`http://localhost:5000/${img}`}

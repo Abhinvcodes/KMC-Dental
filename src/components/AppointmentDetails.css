@@ -1,0 +1,84 @@
+/* src/components/AppointmentDetails.css */
+
+.appointment-details-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  background-color: #fff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.appointment-details-header {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #e5e7eb; /* light gray */
+  padding-bottom: 0.75rem;
+}
+
+.details-label {
+  font-weight: 600;
+  color: #4b5563; /* gray-600 */
+}
+
+.details-value {
+  font-weight: 500;
+  color: #111827; /* gray-900 */
+}
+
+.status {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px; /* pill shape */
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.status-confirmed {
+  background-color: #22c55e; /* green-500 */
+  color: white;
+}
+
+.status-pending {
+  background-color: #fbbf24; /* yellow-400 */
+  color: #78350f; /* dark yellow */
+}
+
+.status-cancelled {
+  background-color: #ef4444; /* red-500 */
+  color: white;
+}
+
+.button-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.action-button {
+  background-color: #2563eb; /* blue-600 */
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}

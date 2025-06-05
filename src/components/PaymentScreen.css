@@ -1,0 +1,83 @@
+/* src/components/PaymentScreen.css */
+
+.payment-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: #f9fafb; /* very light gray */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-details {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  max-width: 400px;
+  width: 100%;
+  color: #333;
+  text-align: left;
+}
+
+.payment-details h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1f2937; /* dark slate */
+}
+
+.payment-details p {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  color: #4b5563; /* gray-600 */
+}
+
+.bank-info {
+  background: #f3f4f6; /* gray-100 */
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #374151; /* gray-700 */
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.payment-for {
+  font-weight: 600;
+  color: #111827; /* gray-900 */
+  margin-bottom: 2rem;
+}
+
+.proceed-btn {
+  background-color: #2563eb; /* blue-600 */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 0;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.proceed-btn:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
+
+.payment-image-container {
+  margin-top: 3rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+.payment-image-container img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: cover;
+}

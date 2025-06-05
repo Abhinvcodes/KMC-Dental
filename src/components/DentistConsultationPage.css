@@ -1,0 +1,197 @@
+/* Page layout */
+.dentist-consultation-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f7fa, #80deea);
+  padding: 4rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #004d40;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Dentist Cards Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  min-height: 50vh;
+  padding-bottom: 2rem;
+}
+
+/* Dentist Card */
+.dentist-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dentist-card:hover {
+  transform: translateY(-5px);
+}
+
+.dentist-card h3 {
+  margin-top: 0.75rem;
+  font-size: 1.2rem;
+  color: #004d40;
+}
+
+.dentist-card p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.dentist-card button {
+  margin-top: 1rem;
+  background-color: #00796b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dentist-card button:hover {
+  background-color: #005f56;
+}
+
+/* Modals Shared */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: none !important;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10001;
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #004d40;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-buttons .cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.modal-buttons .confirm-btn {
+  background-color: #00796b;
+  color: white;
+}
+
+/* Form Modal */
+.modal-content form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.modal-content form input,
+.modal-content form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.modal-content form input:focus,
+.modal-content form textarea:focus {
+  outline: none;
+  border-color: #00796b;
+  box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.2);
+}
+
+/* Confirmation Modal */
+.confirmation-message {
+  text-align: center;
+}
+
+.confirmation-message h2 {
+  font-size: 1.6rem;
+  color: #004d40;
+  margin-bottom: 1rem;
+}
+
+.confirmation-message p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-message button {
+  padding: 0.6rem 1.2rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
