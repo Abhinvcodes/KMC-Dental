@@ -177,7 +177,7 @@ const UserDashboard = () => {
                                             <span className={`status-badge ${getStatusBadgeClass(consultation.status)}`}>
                                                 {consultation.status}
                                             </span>
-                                            {consultation.status === 'reviewed' && (
+                                            {consultation.status === 'pending' && (
                                                 <button 
                                                     onClick = {() => openChat(consultation.dentistId)}
                                                     className = "chat-btn"
