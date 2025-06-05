@@ -10,6 +10,8 @@ const userRoutes = require('./routes/userRoutes');
 const consultationRoutes = require('./routes/consultationRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const { Op } = require('sequelize');
+const http = require('http');
+const initSocket = require('./socket');
 
 // Initialize Express app
 const app = express();
@@ -72,6 +74,8 @@ app.get('/api/admin', protect, admin, (req, res) => {
 //    console.log('Database synchronized');
 // });
 
+const server = http.createServer(app);
+
 // Keep only the startServer function that does everything in the right order
 const startServer = async () => {
     try {
@@ -82,15 +86,17 @@ const startServer = async () => {
         // Check tables BEFORE sync
         await checkTables();
 
-        // Force create the User table first (just this once)
-        await sequelize.models.User.sync({ force: true });
+        // switched to alter: true
+        await sequelize.models.User.sync({ alter: true });
         console.log('User table created');
 
         // Then sync all other models
         await syncDatabase();
 
+        initSocket(server);
+
         // Start the server after database operations complete
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
     } catch (error) {

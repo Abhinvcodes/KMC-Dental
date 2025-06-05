@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import ChatPage from './ChatPage';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
@@ -12,6 +13,18 @@ const UserDashboard = () => {
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState('profile');
     const [userProfile, setUserProfile] = useState(null);
+    const [chatOpen, setChatOpen] = useState(false);
+    const [chatDentistId, setChatDentistId] = useState(null);
+
+    const openChat = (dentistId) => {
+        setChatDentistId(dentistId);
+        setChatOpen(true);
+    }
+
+    const closeChat = () => {
+        setChatOpen(false);
+        setChatDentistId(null);
+    }
 
     useEffect(() => {
         // Simulate API delay and load hardcoded consultations
@@ -164,6 +177,12 @@ const UserDashboard = () => {
                                             <span className={`status-badge ${getStatusBadgeClass(consultation.status)}`}>
                                                 {consultation.status}
                                             </span>
+                                            {consultation.status === 'pending' && (
+                                                <button 
+                                                    onClick = {() => openChat(consultation.dentistId)}
+                                                    className = "chat-btn"
+                                                > Chat With Dentist </button>
+                                            )}
                                         </div>
                                         <div className="consultation-details">
                                             <p><strong>Submitted:</strong> {formatDate(consultation.createdAt)}</p>
@@ -182,7 +201,7 @@ const UserDashboard = () => {
                                                     {consultation.images.map((img, index) => (
                                                         <img
                                                             key={index}
-                                                            src={`http://localhost:5000/${img}`}
+                                                            src={`http://localhost:5001/${img}`}
                                                             alt={`Dental image ${index + 1}`}
                                                             className="consultation-image"
                                                         />
@@ -197,6 +216,15 @@ const UserDashboard = () => {
                     </div>
                 )}
             </div>
+            {chatOpen && (
+                <ChatPage
+                    userId = {user.id}
+                    dentistId = {2}
+                    //chatDentistId to be used instead of 2 once dentist side is ready and a dentist is assigned to patient
+                    userType = {user?.isDentist ? 'dentist' : 'user'}
+                    onClose = {closeChat}
+                />
+            )}
         </div>
     );
 };
