@@ -177,7 +177,7 @@ const UserDashboard = () => {
                                             <span className={`status-badge ${getStatusBadgeClass(consultation.status)}`}>
                                                 {consultation.status}
                                             </span>
-                                            {consultation.status === 'pending' && (
+                                            {consultation.status === 'reviewed' && (
                                                 <button 
                                                     onClick = {() => openChat(consultation.dentistId)}
                                                     className = "chat-btn"
@@ -219,8 +219,7 @@ const UserDashboard = () => {
             {chatOpen && (
                 <ChatPage
                     userId = {user.id}
-                    dentistId = {2}
-                    //chatDentistId to be used instead of 2 once dentist side is ready and a dentist is assigned to patient
+                    dentistId = {chatDentistId}
                     userType = {user?.isDentist ? 'dentist' : 'user'}
                     onClose = {closeChat}
                 />
