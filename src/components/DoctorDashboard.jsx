@@ -33,7 +33,9 @@ const DoctorDashboard = () => {
 
         // Get appointments for this dentist
         const appointmentsResponse = await appointmentAPI.getDentistAppointments();
-        setAppointments(appointmentsResponse);
+        console.log('Appointments data:', appointmentsResponse);
+        // Make sure we always set an array
+        setAppointments(Array.isArray(appointmentsResponse) ? appointmentsResponse : []);
 
         // Get patients for this dentist
         const patientsResponse = await dentistAPI.getDentistPatients();
@@ -87,9 +89,7 @@ const DoctorDashboard = () => {
       {/* Appointments Section */}
       <div className="appointments-section">
         <h3>Your Appointments</h3>
-        {appointments.length === 0 ? (
-          <p className="no-appointments">You have no appointments scheduled.</p>
-        ) : (
+        {Array.isArray(appointments) && appointments.length > 0 ? (
           <div className="appointments-list">
             {appointments.map((appointment) => (
               <div key={appointment.id} className="appointment-card">
@@ -137,6 +137,8 @@ const DoctorDashboard = () => {
               </div>
             ))}
           </div>
+        ) : (
+          <p className="no-appointments">You have no appointments scheduled.</p>
         )}
       </div>
 
