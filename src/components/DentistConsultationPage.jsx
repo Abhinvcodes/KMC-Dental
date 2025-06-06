@@ -1,57 +1,76 @@
 // src/pages/DentistConsultationPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./DentistConsultationPage.css";
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 const DentistConsultationPage = () => {
   const navigate = useNavigate();
+  const [dentists, setDentists] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [dentists] = useState([
-    {
-      id: 1,
-      name: "Dr. John Doe",
-      designation: "Senior Dentist",
-      qualifications: "BDS, MDS",
-      yearsOfExperience: 10,
-    },
-    {
-      id: 2,
-      name: "Dr. Jane Smith",
-      designation: "Orthodontist",
-      qualifications: "BDS, MDS, PhD",
-      yearsOfExperience: 15,
-    },
-    {
-      id: 3,
-      name: "Dr. Michael Johnson",
-      designation: "Periodontist",
-      qualifications: "BDS, MDS",
-      yearsOfExperience: 12,
-    },
-    {
-      id: 4,
-      name: "Dr. Sarah Williams",
-      designation: "Endodontist",
-      qualifications: "BDS, MDS, Cert. Endo",
-      yearsOfExperience: 8,
-    },
-    {
-      id: 5,
-      name: "Dr. Robert Brown",
-      designation: "Oral Surgeon",
-      qualifications: "BDS, MDS, FDSRCS",
-      yearsOfExperience: 18,
-    },
-  ]);
+  useEffect(() => {
+    const fetchDentists = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
+        // Fetch dentists from backend
+        const response = await axios.get(`${API_URL}/api/users/dentists`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setDentists(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching dentists:", err);
+        setError("Failed to load dentists. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDentists();
+  }, [navigate]);
 
   const handleConsultClick = (dentist) => {
-    // Pass the selected dentist data via state or params
+    // Pass the selected dentist data via state
     navigate("/PaymentScreen", { state: { dentist } });
   };
 
   const handleChatClick = (dentistId) => {
-    alert("Please complete the consultation payment first.");
+    // Check if user has active consultation with this dentist
+    // This would typically involve another API call
+    const token = localStorage.getItem("token");
+
+    axios.get(`${API_URL}/api/consultations/check/${dentistId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        if (response.data.hasActiveConsultation) {
+          // Navigate to chat if they have active consultation
+          navigate("/chat", { state: { dentistId } });
+        } else {
+          alert("Please complete a consultation payment first.");
+        }
+      })
+      .catch(error => {
+        console.error("Error checking consultation status:", error);
+        alert("Please complete a consultation payment first.");
+      });
   };
+
+  if (loading) return <div className="loading-container">Loading dentists...</div>;
+  if (error) return <div className="error-container">{error}</div>;
+  if (dentists.length === 0) return <div className="no-data-container">No dentists available at the moment.</div>;
 
   return (
     <div className="dentist-consultation-page">
@@ -64,10 +83,10 @@ const DentistConsultationPage = () => {
         <div className="grid">
           {dentists.map((dentist) => (
             <div className="dentist-card" key={dentist.id}>
-              <h3>{dentist.name}</h3>
-              <p><strong>{dentist.designation}</strong></p>
-              <p>{dentist.qualifications}</p>
-              <p>Experience: {dentist.yearsOfExperience} years</p>
+              <h3>Dr. {dentist.name}</h3>
+              <p><strong>{dentist.specialization || "General Dentist"}</strong></p>
+              <p>{dentist.qualification || "BDS"}</p>
+              <p>Experience: {dentist.experience || "N/A"}</p>
               <div className="card-buttons">
                 <button
                   onClick={() => handleConsultClick(dentist)}

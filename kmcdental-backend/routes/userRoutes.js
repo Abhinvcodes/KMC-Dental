@@ -12,4 +12,7 @@ router.post('/login', userController.loginUser);
 // Get user profile (protected route)
 router.get('/profile', protect, userController.getUserProfile);
 
+// Get all dentists
+router.get('/dentists', userController.getDentists);
+
 module.exports = router;

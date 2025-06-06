@@ -14,11 +14,11 @@ Appointment.belongsTo(User, { foreignKey: 'userId' });
 User.hasMany(Appointment, { foreignKey: 'dentistId', as: 'DentistAppointments' });
 Appointment.belongsTo(User, { foreignKey: 'dentistId', as: 'Dentist' });
 
-User.hasMany(Chat, {foreignKey: 'userId', as: 'UserChats'});
-Chat.belongsTo(User, {foreignKey: 'userId', as: 'User'});
+User.hasMany(Chat, { foreignKey: 'userId', as: 'UserChats' });
+Chat.belongsTo(User, { foreignKey: 'userId', as: 'User' });
 
-User.hasMany(Chat, {foreignKey: 'dentistId', as: 'DentistChats'});
-Chat.belongsTo(User, {foreignKey: 'dentistId', as: 'Dentist'});
+User.hasMany(Chat, { foreignKey: 'dentistId', as: 'DentistChats' });
+Chat.belongsTo(User, { foreignKey: 'dentistId', as: 'Dentist' });
 
 // Sync all models with database
 const syncDatabase = async () => {
@@ -31,6 +31,7 @@ const syncDatabase = async () => {
     }
 };
 
+// Export models
 module.exports = {
     sequelize,
     User,

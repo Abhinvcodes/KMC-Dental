@@ -16,4 +16,7 @@ router.get('/dentist', protect, dentist, consultationController.getDentistConsul
 // Update consultation with dentist feedback
 router.put('/:id', protect, dentist, consultationController.updateConsultation);
 
+// Check if user has active consultation with dentist
+router.get('/check/:dentistId', protect, consultationController.checkConsultation);
+
 module.exports = router;

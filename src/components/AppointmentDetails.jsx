@@ -1,36 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./AppointmentDetails.css";
 
-const appointments = [
-  {
-    id: 101,
-    doctorName: "Dr. Jane Smith",
-    date: "2025-06-15",
-    time: "2:30 PM",
-    status: "pending",
-    reason: "Tooth pain",
-  },
-  {
-    id: 102,
-    doctorName: "Dr. Michael Johnson",
-    date: "2025-06-20",
-    time: "11:00 AM",
-    status: "confirmed",
-    reason: "Routine checkup",
-  },
-  {
-    id: 103,
-    doctorName: "Dr. Sarah Williams",
-    date: "2025-07-01",
-    time: "4:00 PM",
-    status: "cancelled",
-    reason: "Wisdom tooth removal consultation",
-  },
-];
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const getStatusClass = (status) => {
   switch (status.toLowerCase()) {
     case "confirmed":
+    case "scheduled":
       return "status-confirmed";
     case "pending":
       return "status-pending";
@@ -42,6 +19,42 @@ const getStatusClass = (status) => {
 };
 
 const AppointmentDetails = () => {
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        setLoading(true);
+
+        // Get token from localStorage
+        const token = localStorage.getItem("token");
+
+        // Make authenticated request to appointments endpoint
+        const response = await axios.get(`${API_URL}/api/appointments`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setAppointments(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+        setError("Failed to load appointments. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
+
+  if (loading) return <div className="loading">Loading appointments...</div>;
+  if (error) return <div className="error-message">{error}</div>;
+  if (appointments.length === 0) return <div className="no-appointments">No appointments found.</div>;
+
   return (
     <div className="appointments-list-container">
       <h2 className="appointments-list-header">My Appointments</h2>
@@ -50,17 +63,21 @@ const AppointmentDetails = () => {
           <h3 className="appointment-id">Appointment #{appt.id}</h3>
           <div className="details-row">
             <div className="details-label">Doctor:</div>
-            <div className="details-value">{appt.doctorName}</div>
+            <div className="details-value">{appt.Dentist?.name || "Unassigned"}</div>
           </div>
 
           <div className="details-row">
             <div className="details-label">Date:</div>
-            <div className="details-value">{appt.date}</div>
+            <div className="details-value">
+              {new Date(appt.appointmentDate).toLocaleDateString()}
+            </div>
           </div>
 
           <div className="details-row">
             <div className="details-label">Time:</div>
-            <div className="details-value">{appt.time}</div>
+            <div className="details-value">
+              {new Date(appt.appointmentDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           </div>
 
           <div className="details-row">
@@ -78,12 +95,7 @@ const AppointmentDetails = () => {
           </div>
 
           <div className="button-container">
-            {/* <button
-              className="action-button"
-              onClick={() => alert(`Reschedule feature for appointment #${appt.id} coming soon!`)}
-            >
-              Reschedule
-            </button> */}
+            {/* Add reschedule button logic here if needed */}
           </div>
         </div>
       ))}

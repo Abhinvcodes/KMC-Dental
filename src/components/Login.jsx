@@ -14,17 +14,28 @@ const Login = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
-  const [role, setRole] = useState("");
-  const [specialization, setSpecialization] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showRoleSelection, setShowRoleSelection] = useState(false);
 
-const redirectToDashboard = (userRole) => {
-  if (userRole === "Doctor") {
-    navigate("/doctor-dashboard");
-  } else {
-    navigate("/dashboard"); 
-  }
-};
+  // Updated to handle users with multiple roles
+  const redirectToDashboard = (user) => {
+    // If user is both admin and dentist, show role selection dialog
+    if (user.isAdmin && user.isDentist) {
+      setShowRoleSelection(true);
+    }
+    // If user is admin only
+    else if (user.isAdmin) {
+      navigate("/admin-dashboard");
+    }
+    // If user is dentist only
+    else if (user.isDentist) {
+      navigate("/doctor-dashboard");
+    }
+    // Regular user
+    else {
+      navigate("/dashboard");
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,7 +44,7 @@ const redirectToDashboard = (userRole) => {
 
     try {
       const user = await login(email, password);
-      redirectToDashboard(user.role);
+      redirectToDashboard(user);
     } catch (error) {
       setMessage(error.message || "Invalid email or password. Please try again.");
     } finally {
@@ -52,16 +63,19 @@ const redirectToDashboard = (userRole) => {
     setMessage("");
 
     try {
+      // Always register as a regular user (not dentist, not admin)
       const newUser = await register({
         name,
         email,
         password,
         phoneNumber,
         gender,
-        role,
-        specialization: role === "Doctor" ? specialization : null,
+        isDentist: false, // Regular patient only
+        isAdmin: false    // Not an admin
       });
-      redirectToDashboard(newUser.role);
+
+      // Always navigate to patient dashboard after registration
+      navigate("/dashboard");
     } catch (error) {
       setMessage(error.message || "Registration failed. Please try again.");
     } finally {
@@ -71,6 +85,24 @@ const redirectToDashboard = (userRole) => {
 
   return (
     <div className="login-container">
+      {showRoleSelection && (
+        <div className="role-selection-modal">
+          <div className="role-selection-content">
+            <h2>Select Dashboard</h2>
+            <p>You have access to multiple dashboards. Please select one:</p>
+            <button onClick={() => navigate("/admin-dashboard")}>
+              Admin Dashboard
+            </button>
+            <button onClick={() => navigate("/doctor-dashboard")}>
+              Doctor Dashboard
+            </button>
+            <button onClick={() => setShowRoleSelection(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
       {!isSignup ? (
         !isForgotPassword ? (
           <form onSubmit={handleLogin}>
@@ -138,20 +170,6 @@ const redirectToDashboard = (userRole) => {
               <option value="other">Other</option>
             </select>
           </label>
-          <label>
-            Role:
-            <select value={role} onChange={(e) => setRole(e.target.value)} required>
-              <option value="">Select Role</option>
-              <option value="User">User</option>
-              <option value="Doctor">Doctor</option>
-            </select>
-          </label>
-          {role === "Doctor" && (
-            <label>
-              Specialization:
-              <input type="text" value={specialization} onChange={(e) => setSpecialization(e.target.value)} required />
-            </label>
-          )}
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>

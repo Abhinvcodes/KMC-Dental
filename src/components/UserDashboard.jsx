@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import ChatPage from './ChatPage';
 import './UserDashboard.css';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 const UserDashboard = () => {
     const navigate = useNavigate();
@@ -27,51 +30,40 @@ const UserDashboard = () => {
     }
 
     useEffect(() => {
-        // Simulate API delay and load hardcoded consultations
-        setTimeout(() => {
+        const fetchUserData = async () => {
             try {
-                const mockConsultations = [
-                    {
-                        id: 1,
-                        status: 'pending',
-                        createdAt: '2025-06-01T10:00:00Z',
-                        comments: 'Mild toothache in upper molars.',
-                        dentistFeedback: '',
-                        images: ['uploads/image1.jpg', 'uploads/image2.jpg', 'uploads/image3.jpg'],
-                    },
-                    {
-                        id: 2,
-                        status: 'reviewed',
-                        createdAt: '2025-05-28T14:30:00Z',
-                        comments: 'Swelling near gums.',
-                        dentistFeedback: 'Prescribed antibiotics. Please revisit after 5 days.',
-                        images: ['uploads/image4.jpg', 'uploads/image5.jpg', 'uploads/image6.jpg'],
-                    },
-                    {
-                        id: 3,
-                        status: 'rejected',
-                        createdAt: '2025-05-25T09:45:00Z',
-                        comments: '',
-                        dentistFeedback: 'Images not clear. Please resubmit.',
-                        images: ['uploads/image7.jpg', 'uploads/image8.jpg', 'uploads/image9.jpg'],
-                    }
-                ];
-                setConsultations(mockConsultations);
+                setLoading(true);
+                const token = localStorage.getItem('token');
+
+                if (!token) {
+                    navigate('/login');
+                    return;
+                }
+
+                // Fetch user profile
+                const profileResponse = await axios.get(`${API_URL}/api/users/profile`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setUserProfile(profileResponse.data);
+
+                // Fetch user consultations
+                const consultationsResponse = await axios.get(`${API_URL}/api/consultations`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setConsultations(consultationsResponse.data);
+                setError('');
             } catch (err) {
-                setError('Failed to load consultations');
+                console.error('Error fetching user data:', err);
+                setError(err.response?.data?.message || 'Failed to load user data');
             } finally {
                 setLoading(false);
             }
+        };
 
-            // Hardcoded user profile
-            setUserProfile({
-                name: 'Jane Doe',
-                email: 'jane@example.com',
-                phoneNumber: '1111111110',
-                gender: 'Female'
-            });
-        }, 1000);
-    }, []);
+        fetchUserData();
+    }, [navigate]);
 
     const handleLogout = () => {
         logout();
@@ -92,9 +84,20 @@ const UserDashboard = () => {
         switch (status) {
             case 'pending': return 'badge-warning';
             case 'reviewed': return 'badge-success';
+            case 'completed': return 'badge-success';
             case 'rejected': return 'badge-danger';
             default: return 'badge-secondary';
         }
+    };
+
+    // Function to get proper image URL
+    const getImageUrl = (imagePath) => {
+        // If it's already a full URL (e.g., from S3 or Cloudinary)
+        if (imagePath.startsWith('http')) {
+            return imagePath;
+        }
+        // Otherwise append to API URL
+        return `${API_URL}/${imagePath}`;
     };
 
     return (
@@ -133,24 +136,30 @@ const UserDashboard = () => {
                 {activeTab === 'profile' && (
                     <div className="profile-section">
                         <h2>Account Holder Information</h2>
-                        <div className="profile-details">
-                            <div className="profile-row">
-                                <span className="profile-label">Name:</span>
-                                <span className="profile-value">{userProfile?.name || user?.name}</span>
+                        {loading ? (
+                            <p>Loading profile information...</p>
+                        ) : error ? (
+                            <p className="error-message">{error}</p>
+                        ) : (
+                            <div className="profile-details">
+                                <div className="profile-row">
+                                    <span className="profile-label">Name:</span>
+                                    <span className="profile-value">{userProfile?.name}</span>
+                                </div>
+                                <div className="profile-row">
+                                    <span className="profile-label">Email:</span>
+                                    <span className="profile-value">{userProfile?.email}</span>
+                                </div>
+                                <div className="profile-row">
+                                    <span className="profile-label">Phone:</span>
+                                    <span className="profile-value">{userProfile?.phoneNumber}</span>
+                                </div>
+                                <div className="profile-row">
+                                    <span className="profile-label">Gender:</span>
+                                    <span className="profile-value">{userProfile?.gender}</span>
+                                </div>
                             </div>
-                            <div className="profile-row">
-                                <span className="profile-label">Email:</span>
-                                <span className="profile-value">{userProfile?.email || user?.email}</span>
-                            </div>
-                            <div className="profile-row">
-                                <span className="profile-label">Phone:</span>
-                                <span className="profile-value">{userProfile?.phoneNumber || user?.phoneNumber}</span>
-                            </div>
-                            <div className="profile-row">
-                                <span className="profile-label">Gender:</span>
-                                <span className="profile-value">{userProfile?.gender || user?.gender}</span>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 )}
 
@@ -177,11 +186,13 @@ const UserDashboard = () => {
                                             <span className={`status-badge ${getStatusBadgeClass(consultation.status)}`}>
                                                 {consultation.status}
                                             </span>
-                                            {consultation.status === 'pending' && (
-                                                <button 
-                                                    onClick = {() => openChat(consultation.dentistId)}
-                                                    className = "chat-btn"
-                                                > Chat With Dentist </button>
+                                            {consultation.dentistId && (
+                                                <button
+                                                    onClick={() => openChat(consultation.dentistId)}
+                                                    className="chat-btn"
+                                                >
+                                                    Chat With Dentist
+                                                </button>
                                             )}
                                         </div>
                                         <div className="consultation-details">
@@ -195,19 +206,21 @@ const UserDashboard = () => {
                                                 </div>
                                             )}
 
-                                            <div className="consultation-images">
-                                                <h4>Your Uploaded Images:</h4>
-                                                <div className="image-gallery">
-                                                    {consultation.images.map((img, index) => (
-                                                        <img
-                                                            key={index}
-                                                            src={`http://localhost:5001/${img}`}
-                                                            alt={`Dental image ${index + 1}`}
-                                                            className="consultation-image"
-                                                        />
-                                                    ))}
+                                            {consultation.images && consultation.images.length > 0 && (
+                                                <div className="consultation-images">
+                                                    <h4>Your Uploaded Images:</h4>
+                                                    <div className="image-gallery">
+                                                        {consultation.images.map((img, index) => (
+                                                            <img
+                                                                key={index}
+                                                                src={getImageUrl(img)}
+                                                                alt={`Dental image ${index + 1}`}
+                                                                className="consultation-image"
+                                                            />
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
@@ -218,10 +231,10 @@ const UserDashboard = () => {
             </div>
             {chatOpen && (
                 <ChatPage
-                    userId = {user.id}
-                    dentistId = {chatDentistId}
-                    userType = {user?.isDentist ? 'dentist' : 'user'}
-                    onClose = {closeChat}
+                    userId={userProfile?.id}
+                    dentistId={chatDentistId}
+                    userType="user"
+                    onClose={closeChat}
                 />
             )}
         </div>

@@ -1,4 +1,6 @@
 const { Consultation, User } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 // @desc    Create a new consultation
 // @route   POST /api/consultations
@@ -53,7 +55,7 @@ exports.getDentistConsultations = async (req, res) => {
         // Dentists see all pending consultations or ones they are assigned to
         const consultations = await Consultation.findAll({
             where: {
-                [Sequelize.Op.or]: [
+                [Op.or]: [
                     { status: 'pending' },
                     { dentistId: req.user.id }
                 ]
@@ -97,5 +99,30 @@ exports.updateConsultation = async (req, res) => {
     } catch (error) {
         console.error('Update consultation error:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+// @desc    Check if a user has an active consultation with a specific dentist
+// @route   GET /api/consultations/check/:dentistId
+// @access  Private
+exports.checkConsultation = async (req, res) => {
+    try {
+        const { dentistId } = req.params;
+        const userId = req.user.id;
+
+        const consultation = await Consultation.findOne({
+            where: {
+                userId,
+                dentistId,
+                status: {
+                    [Op.in]: ['pending', 'reviewed'] // Active statuses
+                }
+            }
+        });
+
+        res.json({ hasActiveConsultation: !!consultation });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
     }
 };

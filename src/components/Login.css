@@ -1,7 +1,7 @@
 .login-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
+  align-items: flex-start;
   min-height: 100vh;
   background-color: #f0f0f0;
   padding-top: 60px;
@@ -10,55 +10,112 @@
 form {
   width: 100%;
   max-width: 400px;
-  padding: 30px 20px; 
+  padding: 30px 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px; 
+  margin-bottom: 40px;
 }
 
-  label {
-    display: block;
-    margin-bottom: 15px;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    margin-top: 5px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  .forgot-password-link, .signup-link, .back-to-login-link, .resend-otp-link {
-    color: #007bff;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .forgot-password-link:hover, .signup-link:hover, .back-to-login-link:hover, .resend-otp-link:hover {
-    text-decoration: underline;
-  }
+label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.forgot-password-link,
+.signup-link,
+.back-to-login-link,
+.resend-otp-link {
+  color: #007bff;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot-password-link:hover,
+.signup-link:hover,
+.back-to-login-link:hover,
+.resend-otp-link:hover {
+  text-decoration: underline;
+}
+
+.role-selection-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.role-selection-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+
+.role-selection-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.role-selection-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.role-selection-content button:hover {
+  background-color: #45a049;
+}
+
+.role-selection-content button:last-child {
+  background-color: #f44336;
+}
+
+.role-selection-content button:last-child:hover {
+  background-color: #d32f2f;
+}

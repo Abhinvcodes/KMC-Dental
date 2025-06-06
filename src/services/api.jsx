@@ -112,6 +112,32 @@ export const appointmentAPI = {
         }
     },
 
+    // Add dentist appointment methods
+    getDentistAppointments: async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/appointments/dentist`,
+                createAuthHeader()
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: 'Failed to get dentist appointments' };
+        }
+    },
+
+    updateAppointmentStatus: async (appointmentId, status) => {
+        try {
+            const response = await axios.put(
+                `${API_URL}/appointments/${appointmentId}/status`,
+                { status },
+                createAuthHeader()
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: 'Failed to update appointment status' };
+        }
+    },
+
     processPayment: async (id, paymentDetails) => {
         try {
             const response = await axios.post(

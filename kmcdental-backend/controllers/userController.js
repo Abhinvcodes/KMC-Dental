@@ -100,3 +100,20 @@ exports.getUserProfile = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+// @desc    Get all dentists
+// @route   GET /api/users/dentists
+// @access  Public
+exports.getDentists = async (req, res) => {
+    try {
+        const dentists = await User.findAll({
+            where: { isDentist: true },
+            attributes: ['id', 'name', 'email', 'phoneNumber', 'specialization']
+        });
+
+        res.json(dentists);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

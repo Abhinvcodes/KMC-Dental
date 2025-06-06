@@ -1,6 +1,14 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
+// Define options for Sequelize
+const options = {
+    define: {
+        freezeTableName: true,
+        underscored: true
+    }
+};
+
 // Use DATABASE_URL if available, otherwise use individual params
 const sequelize = process.env.DATABASE_URL
     ? new Sequelize(process.env.DATABASE_URL, {
@@ -11,7 +19,8 @@ const sequelize = process.env.DATABASE_URL
                 rejectUnauthorized: false
             }
         },
-        schema: 'public'
+        schema: 'public',
+        ...options  // Add this
     })
     : new Sequelize(
         process.env.DB_NAME,
@@ -20,7 +29,8 @@ const sequelize = process.env.DATABASE_URL
         {
             host: process.env.DB_HOST,
             port: process.env.DB_PORT,
-            dialect: 'postgres'
+            dialect: 'postgres',
+            ...options  // Add this
         }
     );
 

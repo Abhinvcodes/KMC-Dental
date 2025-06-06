@@ -68,11 +68,6 @@ app.get('/api/admin', protect, admin, (req, res) => {
     res.json({ message: 'Admin access granted' });
 });
 
-// Remove these two sync calls - they're causing problems
-// REMOVE: syncDatabase();
-// REMOVE: sequelize.sync({ alter: true }).then(() => {
-//    console.log('Database synchronized');
-// });
 
 const server = http.createServer(app);
 
