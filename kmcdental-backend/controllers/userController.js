@@ -1,5 +1,8 @@
 const { User } = require('../models');
 const jwt = require('jsonwebtoken');
+const Consultation = require('../models/consultation');
+const Appointment = require('../models/appointment');
+const { Op } = require('sequelize');
 
 // Generate JWT
 const generateToken = (id) => {
@@ -114,6 +117,56 @@ exports.getDentists = async (req, res) => {
         res.json(dentists);
     } catch (error) {
         console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Get all patients assigned to a dentist
+// @route   GET /api/users/patients
+// @access  Private
+exports.getDentistPatients = async (req, res) => {
+    try {
+        const dentistId = req.user.id;
+
+        // Find users who have consultations with this dentist
+        const consultationPatients = await Consultation.findAll({
+            where: { dentistId },
+            attributes: ['userId'],
+            raw: true
+        });
+
+        // Find users who have appointments with this dentist
+        const appointmentPatients = await Appointment.findAll({
+            where: { dentistId },
+            attributes: ['userId'],
+            raw: true
+        });
+
+        // Combine and get unique patient IDs
+        const patientIds = [
+            ...new Set([
+                ...consultationPatients.map(p => p.userId),
+                ...appointmentPatients.map(p => p.userId)
+            ])
+        ];
+
+        // If no patients, return empty array
+        if (patientIds.length === 0) {
+            return res.json([]);
+        }
+
+        // Get patient details
+        const patients = await User.findAll({
+            where: {
+                id: { [Op.in]: patientIds },
+                isDentist: false // Make sure they're patients, not other dentists
+            },
+            attributes: ['id', 'name', 'email', 'phoneNumber', 'gender']
+        });
+
+        res.json(patients);
+    } catch (error) {
+        console.error('Error getting dentist patients:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };

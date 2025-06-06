@@ -93,7 +93,7 @@ export const appointmentAPI = {
     createAppointment: async (appointmentData) => {
         try {
             const response = await axios.post(
-                `${API_URL}/appointments`,
+                `${API_URL}/api/appointments`,
                 appointmentData,
                 createAuthHeader()
             );
@@ -116,7 +116,7 @@ export const appointmentAPI = {
     getDentistAppointments: async () => {
         try {
             const response = await axios.get(
-                `${API_URL}/appointments/dentist`,
+                `${API_URL}/api/appointments/dentist`,
                 createAuthHeader()
             );
             return response.data;
@@ -148,6 +148,34 @@ export const appointmentAPI = {
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Payment processing failed' };
+        }
+    }
+};
+
+// Dentist API calls
+export const dentistAPI = {
+    getDentistPatients: async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/api/users/dentist/patients`,
+                createAuthHeader()
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: 'Failed to get dentist patients' };
+        }
+    },
+
+    // Other dentist methods can be added here
+    getDentistConsultations: async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/api/consultations/dentist`,
+                createAuthHeader()
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: 'Failed to get dentist consultations' };
         }
     }
 };

@@ -40,12 +40,12 @@ exports.admin = (req, res, next) => {
   }
 };
 
-// Dentist middleware - restricts access to dentist users
+// Middleware to check if user is a dentist
 exports.dentist = (req, res, next) => {
   if (req.user && req.user.isDentist) {
     next();
   } else {
-    res.status(403).json({ message: 'Not authorized as dentist' });
+    res.status(403).json({ message: 'Not authorized as a dentist' });
   }
 };
 
