@@ -1,0 +1,424 @@
+/* AdminPage.css - Enhanced Professional Theme */
+
+/* General Layout */
+.admin-page {
+  font-family: 'Poppins', sans-serif;
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
+  color: #222;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Header */
+.admin-header {
+  text-align: center;
+  margin-bottom: 36px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #007a7c;
+  background: linear-gradient(90deg, #73d5e1 60%, #007a7c 100%);
+  padding: 24px 0;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 122, 124, 0.08);
+}
+
+/* Section Titles */
+.department-management > h2,
+.consultation-table > h2,
+.appointment-form > h2 {
+  font-size: 1.35rem;
+  color: #007a7c;
+  margin-bottom: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Department Management */
+.department-management {
+  margin-bottom: 48px;
+  background: #ffffffcc;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 122, 124, 0.04);
+}
+
+/* Add Department */
+.add-department {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.add-department input {
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #b2dfdb;
+  background: #f8fafb;
+  transition: border 0.2s;
+  flex: 1;
+  min-width: 200px;
+}
+
+.add-department input:focus {
+  border: 1.5px solid #007a7c;
+  outline: none;
+  background: #e0f7fa;
+}
+
+.add-department button {
+  padding: 9px 18px;
+  background: #005d5e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,122,124,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.add-department button:hover {
+  background: #004345;
+  box-shadow: 0 4px 16px rgba(0,122,124,0.13);
+}
+
+/* Department Grid */
+.department-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Department Card */
+.department-card {
+  background: #fff;
+  padding: 22px 18px 16px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 14px rgba(0, 122, 124, 0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 5px solid #80deea;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.department-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 122, 124, 0.15);
+  border-left: 5px solid #007a7c;
+}
+
+/* Department Header */
+.department-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.department-header h3 {
+  font-size: 1.2rem;
+  color: #007a7c;
+  font-weight: 600;
+  margin: 0;
+}
+
+.department-header input {
+  font-size: 1.1rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1.5px solid #b2dfdb;
+  background: #f8fafb;
+  flex-grow: 1;
+  transition: border 0.2s;
+}
+
+.department-header input:focus {
+  border: 1.5px solid #007a7c;
+  outline: none;
+  background: #e0f7fa;
+}
+
+/* Department Actions */
+.department-actions button {
+  margin-left: 5px;
+  margin-top: 3px;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  background: #005d5e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,122,124,0.07);
+}
+
+.department-actions button:hover {
+  background: #004648;
+}
+
+/* Doctor Management */
+.doctor-management {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.doctor-management input {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: 1px solid #b2dfdb;
+  background: #f8fafb;
+  flex: 1;
+  min-width: 140px;
+  transition: border 0.2s;
+}
+
+.doctor-management input:focus {
+  border: 1.5px solid #007a7c;
+  outline: none;
+  background: #e0f7fa;
+}
+
+.doctor-management .add-doctor-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  max-width: 100px;
+  background: #005d5e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,122,124,0.07);
+}
+
+.doctor-management .add-doctor-btn:hover {
+  background: #005d5e;
+}
+
+/* Doctor List */
+.doctor-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.doctor-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.doctor-badge {
+  background: #005d5e;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 10px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 4px rgba(0,122,124,0.07);
+}
+
+/* Smaller Delete Doctor button */
+.doctor-item .delete-doctor-btn {
+  padding: 3px 8px;
+  font-size: 11px;
+  max-width: 80px;
+  background: linear-gradient(90deg, #e53935 99%, #ffb300 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(229,57,53,0.07);
+}
+
+.doctor-item .delete-doctor-btn:hover {
+  background: linear-gradient(90deg, #b71c1c 70%, #ffb300 100%);
+}
+
+/* Consultations */
+.consultation-table {
+  margin-bottom: 48px;
+  overflow-x: auto;
+  background: #ffffffcc;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 122, 124, 0.04);
+}
+
+.consultation-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.consultation-table th,
+.consultation-table td {
+  border: 1px solid #b2dfdb;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.consultation-table th {
+  background: #005d5e;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.consultation-table td button {
+  padding: 4px 10px;
+  font-size: 11px;
+  background: #005d5e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin-right: 4px;
+  margin-top:4px;
+  box-shadow: 0 1px 4px rgba(0,122,124,0.07);
+}
+
+.consultation-table td button:hover {
+  background: #004c4e;
+}
+
+/* Appointment Form */
+.appointment-form {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom: 36px;
+}
+
+.appointment-form form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.appointment-form input,
+.appointment-form select {
+  background: #f8fafb;
+  border: 1px solid #b2dfdb;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  transition: border 0.2s;
+}
+
+.appointment-form input:focus,
+.appointment-form select:focus {
+  border: 1.5px solid #007a7c;
+  outline: none;
+  background: #e0f7fa;
+}
+
+.appointment-form button[type="submit"] {
+  grid-column: span 2;
+  padding: 10px 0;
+  background: #005d5e;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(0,122,124,0.07);
+}
+
+.appointment-form button[type="submit"]:hover {
+  background: #005d5e;
+}
+
+.appointment-form button[type="button"] {
+  grid-column: span 1;
+  background: #999;
+  padding: 8px 0;
+  font-size: 13px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.appointment-form button[type="button"]:hover {
+  background-color: #666;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 900px) {
+  .department-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-header {
+    font-size: 1.5rem;
+    padding: 14px 0;
+  }
+  .department-grid {
+    grid-template-columns: 1fr;
+  }
+  .add-department,
+  .doctor-management {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .doctor-management input,
+  .add-department input {
+    width: 100%;
+  }
+  .department-card,
+  .appointment-form,
+  .consultation-table {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-header {
+    font-size: 1.1rem;
+    padding: 8px 0;
+  }
+  .doctor-management .add-doctor-btn,
+  .doctor-item .delete-doctor-btn,
+  .consultation-table td button {
+    font-size: 9px;
+    padding: 2px 4px;
+    max-width: 60px;
+  }
+  .appointment-form {
+    padding: 6px;
+  }
+  .department-grid {
+    grid-template-columns: 1fr;
+  }
+}

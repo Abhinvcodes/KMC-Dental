@@ -30,6 +30,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import ChatWindow from "./components/ChatWindow";
 import PaymentScreen from "./components/PaymentScreen";
 import AppointmentDetails from './components/AppointmentDetails';
+import AdminPage from './components/AdminPage';
 
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/chat/:patientId" element={<ChatWindow />} />
           <Route path="/PaymentScreen" element={<PaymentScreen />} />
           <Route path="/AppointmentDetails" element={<AppointmentDetails />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/DentalForm" element={
             <DentalForm />
           } />
