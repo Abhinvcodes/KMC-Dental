@@ -180,4 +180,21 @@ export const dentistAPI = {
     }
 };
 
+// Admin API calls
+export const adminAPI = {
+    getDepartments: async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/api/admin/departments`,
+                createAuthHeader()
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: 'Failed to fetch departments' };
+        }
+    },
+
+    // Add other admin methods for managing departments, doctors, and consultations
+};
+
 // Need to install axios: npm install axios
