@@ -30,7 +30,9 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import ChatWindow from "./components/ChatWindow";
 import PaymentScreen from "./components/PaymentScreen";
 import AppointmentDetails from './components/AppointmentDetails';
-import AdminPage from './components/AdminPage';
+import ConsultationPage from './components/ConsultationPage';
+import DepartmentPage from './components/DepartmentPage';
+import CreateAppointment from './components/CreateAppointment';
 
 
 const App = () => {
@@ -61,11 +63,13 @@ const App = () => {
           <Route path="/TMJDisorders" element={<TMJDisorders />} />
           <Route path="/Hypoplasia" element={<Hypoplasia />} />
           <Route path="/Login" element={<Login />} />
-           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/chat/:patientId" element={<ChatWindow />} />
           <Route path="/PaymentScreen" element={<PaymentScreen />} />
           <Route path="/AppointmentDetails" element={<AppointmentDetails />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin" element={<ConsultationPage />} />
+          <Route path="/departments" element={<DepartmentPage />} />
+          <Route path="/createappointment" element={<CreateAppointment />} />
           <Route path="/DentalForm" element={
             <DentalForm />
           } />
