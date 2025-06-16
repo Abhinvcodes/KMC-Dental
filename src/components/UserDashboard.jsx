@@ -5,7 +5,7 @@ import ChatPage from './ChatPage';
 import './UserDashboard.css';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5173';
 
 const UserDashboard = () => {
     const navigate = useNavigate();
@@ -34,6 +34,13 @@ const UserDashboard = () => {
             try {
                 setLoading(true);
                 const token = localStorage.getItem('token');
+
+                // Add bypass for development
+                if (import.meta.env.DEV && localStorage.getItem('bypassAuth') === 'true') {
+                    console.log('DEV MODE: UserDashboard auth check bypassed');
+                    setLoading(false);
+                    return;
+                }
 
                 if (!token) {
                     navigate('/login');

@@ -77,7 +77,9 @@ const App = () => {
             <DentistConsultationPage />
           } />
           <Route path="/dashboard" element={
-             <UserDashboard />
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
           } />
         </Routes>
       </div>
