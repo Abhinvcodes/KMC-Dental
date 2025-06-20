@@ -1,4 +1,6 @@
-const sequelize = require('../config/db');
+const db = require('../config/db');
+
+// Import models - these should be updated as shown below
 const User = require('./user');
 const Consultation = require('./consultation');
 const Appointment = require('./appointment');
@@ -23,17 +25,17 @@ Chat.belongsTo(User, { foreignKey: 'dentistId', as: 'Dentist' });
 // Sync all models with database
 const syncDatabase = async () => {
     try {
-        await sequelize.sync({ alter: true });
-        console.log('✅ Database models synced successfully');
+        await db.sequelize.sync({ alter: false });
+        console.log('✅ Database synchronized');
     } catch (error) {
-        console.error('❌ Error syncing database models:', error);
-        console.error('Details: ', error.message);
+        console.error('❌ Error syncing database:', error);
+        throw error;
     }
 };
 
-// Export models
+// Export models and database utilities
 module.exports = {
-    sequelize,
+    sequelize: db.sequelize,
     User,
     Consultation,
     Appointment,

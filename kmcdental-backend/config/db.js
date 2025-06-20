@@ -1,17 +1,12 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-// Define options for Sequelize
-const options = {
-    define: {
-        freezeTableName: true,
-        underscored: true
-    }
-};
+// Create Sequelize instance immediately
+let sequelizeInstance = null;
 
-// Use DATABASE_URL if available, otherwise use individual params
-const sequelize = process.env.DATABASE_URL
-    ? new Sequelize(process.env.DATABASE_URL, {
+// For remote database if DATABASE_URL exists
+if (process.env.DATABASE_URL) {
+    sequelizeInstance = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         dialectOptions: {
             ssl: {
@@ -20,28 +15,89 @@ const sequelize = process.env.DATABASE_URL
             }
         },
         schema: 'public',
-        ...options  // Add this
-    })
-    : new Sequelize(
+        define: {
+            freezeTableName: true,
+            underscored: true
+        },
+        logging: console.log
+    });
+} else {
+    // For local database
+    sequelizeInstance = new Sequelize(
         process.env.DB_NAME,
         process.env.DB_USER,
         process.env.DB_PASSWORD,
         {
-            host: process.env.DB_HOST,
-            port: process.env.DB_PORT,
+            host: 'localhost',
+            port: 5432,
             dialect: 'postgres',
-            ...options  // Add this
+            define: {
+                freezeTableName: true,
+                underscored: true
+            },
+            logging: (sql) => console.log(`[SQL] ${sql}`),
+            benchmark: true,
+            pool: {
+                max: 5,
+                min: 0,
+                acquire: 30000,
+                idle: 10000
+            }
         }
     );
+}
 
-// Test the database connection
-sequelize.authenticate()
-    .then(() => {
-        console.log('✅ Database connection has been established successfully.');
-        console.log(`Connected to: ${process.env.DATABASE_URL ? 'Production database' : process.env.DB_NAME}`);
-    })
-    .catch(err => {
-        console.error('❌ Unable to connect to the database:', err);
-    });
+// Track connection state
+let isInitialized = false;
 
-module.exports = sequelize;
+// Initialize database with fallback
+const initialize = async () => {
+    if (isInitialized) return sequelizeInstance;
+
+    try {
+        // Try remote connection if DATABASE_URL exists
+        if (process.env.DATABASE_URL) {
+            try {
+                await sequelizeInstance.authenticate();
+                console.log('✅ Connected to remote database successfully');
+                isInitialized = true;
+                return sequelizeInstance;
+            } catch (error) {
+                console.log('⚠️ Remote database connection failed, trying local database:', error.message);
+
+                // Re-create sequelize for local connection
+                sequelizeInstance = new Sequelize(
+                    process.env.DB_NAME,
+                    process.env.DB_USER,
+                    process.env.DB_PASSWORD,
+                    {
+                        host: process.env.DB_HOST || 'localhost',
+                        port: process.env.DB_PORT || 5432,
+                        dialect: 'postgres',
+                        define: {
+                            freezeTableName: true,
+                            underscored: true
+                        },
+                        logging: (sql) => console.log(`[SQL] ${sql}`),
+                        benchmark: true
+                    }
+                );
+            }
+        }
+
+        // Try local connection
+        await sequelizeInstance.authenticate();
+        console.log('✅ Connected to local database successfully');
+        isInitialized = true;
+        return sequelizeInstance;
+    } catch (error) {
+        console.error('❌ All database connection attempts failed:', error);
+        throw error;
+    }
+};
+
+// Simple module exports
+module.exports = {
+    sequelize: sequelizeInstance,
+    initialize
+};

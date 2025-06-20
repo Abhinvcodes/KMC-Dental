@@ -9,8 +9,40 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Check if user is already logged in on app load
+    // DEV ONLY: Authentication bypass
     useEffect(() => {
+        // Check if we're in development mode
+        if (import.meta.env.DEV) {
+            // You can change these defaults directly in the code
+            const devMode = true; // Set to false to disable bypass
+            const isAdmin = true;  // Admin access
+            const isDentist = true; // Dentist access
+
+            if (devMode) {
+                console.log('⚠️ DEV MODE: Authentication automatically bypassed');
+                console.log(`🔑 Roles: Admin=${isAdmin}, Dentist=${isDentist}`);
+
+                // Create a fake user with the configured roles
+                const devUser = {
+                    id: 'dev-user-id',
+                    name: 'Development User',
+                    email: 'dev@example.com',
+                    isAdmin: isAdmin,
+                    isDentist: isDentist,
+                };
+
+                // Add these lines to mock complete authentication
+                localStorage.setItem('token', 'fake-dev-token');
+                localStorage.setItem('user', JSON.stringify(devUser));
+
+                setUser(devUser);
+                setIsAuthenticated(true);
+                setLoading(false);
+                return;
+            }
+        }
+
+        // Regular authentication check
         const checkLoginStatus = async () => {
             const token = localStorage.getItem('token');
             const storedUser = localStorage.getItem('user');

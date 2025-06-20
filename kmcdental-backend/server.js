@@ -1,21 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const db = require('./config/db');
 const path = require('path');
 require('dotenv').config();
-const sequelize = require('./config/db');
-const { testConnection } = require('./config/db');
-const { syncDatabase } = require('./models/index');
+const http = require('http');
+const initSocket = require('./socket');
 const { protect, admin } = require('./middleware/authMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const consultationRoutes = require('./routes/consultationRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
-const { Op } = require('sequelize');
-const http = require('http');
-const initSocket = require('./socket');
 
 // Initialize Express app
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors());
@@ -25,15 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // Static files for uploaded images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Test database connection
-sequelize.authenticate()
-    .then(() => {
-        console.log('Database connection established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-
+// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/consultations', consultationRoutes);
 app.use('/api/appointments', appointmentRoutes);
@@ -43,12 +32,11 @@ app.get('/', (req, res) => {
     res.send('KMC Dental API is running');
 });
 
-// Test route
+// Test routes
 app.get('/api/test', (req, res) => {
     res.json({ message: 'API is working' });
 });
 
-// Test route that accepts both GET and POST
 app.all('/api/test/register', (req, res) => {
     res.json({
         message: 'Registration test route works',
@@ -68,51 +56,38 @@ app.get('/api/admin', protect, admin, (req, res) => {
     res.json({ message: 'Admin access granted' });
 });
 
-
-const server = http.createServer(app);
+// Move this import AFTER db initialization
+// const { syncDatabase } = require('./models');
 
 // Keep only the startServer function that does everything in the right order
 const startServer = async () => {
     try {
-        // Connect to database first
-        await sequelize.authenticate();
+        // Initialize DB first
+        await db.initialize();
         console.log('Database connection established successfully.');
 
-        // Check tables BEFORE sync
-        await checkTables();
+        // NOW import models
+        const { syncDatabase } = require('./models');
 
-        // switched to alter: true
-        await sequelize.models.User.sync({ alter: true });
-        console.log('User table created');
-
-        // Then sync all other models
+        // Sync all models
+        //commenting sync because its creating problems
         await syncDatabase();
 
+        // Create HTTP server
+        const server = http.createServer(app);
+
+        // Initialize socket.io
         initSocket(server);
 
         // Start the server after database operations complete
         server.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+            console.log(`✅ Server running on port ${PORT}`);
         });
     } catch (error) {
-        console.error('Failed to start server:', error.message);
+        console.error('❌ Failed to start server:', error.message);
         console.error('Error details:', error.parent?.message || error);
     }
 };
 
-// Add this function to check database tables
-const checkTables = async () => {
-    try {
-        const [results] = await sequelize.query(`
-      SELECT table_schema, table_name 
-      FROM information_schema.tables 
-      WHERE table_catalog = current_database()
-    `);
-        console.log('Available tables:', results);
-    } catch (error) {
-        console.error('Error checking tables:', error);
-    }
-};
-
-// Call the async function to start everything
+// Call the async function to start everything - ONLY THIS ONE
 startServer();

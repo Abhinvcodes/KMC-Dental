@@ -4,7 +4,7 @@ import axios from "axios";
 import "./DoctorDashboard.css";
 import { dentistAPI, appointmentAPI } from '../services/api';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5173';
 
 const DoctorDashboard = () => {
   const navigate = useNavigate();
