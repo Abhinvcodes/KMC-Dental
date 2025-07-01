@@ -63,17 +63,17 @@ const App = () => {
           <Route path="/TMJDisorders" element={<TMJDisorders />} />
           <Route path="/Hypoplasia" element={<Hypoplasia />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-          <Route path="/chat/:patientId" element={<ChatWindow />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />               
+          <Route path="/chat/:patientId" element={<ChatWindow />} />                   
           <Route path="/PaymentScreen" element={<PaymentScreen />} />
-          <Route path="/AppointmentDetails" element={<AppointmentDetails />} />
+          <Route path="/AppointmentDetails" element={<AppointmentDetails />} />           
           <Route path="/admin" element={<ConsultationPage />} />
           <Route path="/departments" element={<DepartmentPage />} />
           <Route path="/createappointment" element={<CreateAppointment />} />
           <Route path="/DentalForm" element={
             <DentalForm />
           } />
-          <Route path="/DentistConsultationPage" element={
+          <Route path="/DentistConsultationPage" element={                               
             <DentistConsultationPage />
           } />
           <Route path="/dashboard" element={

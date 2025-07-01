@@ -53,7 +53,7 @@
 }
 
 .proceed-btn {
-  background-color: #2563eb; /* blue-600 */
+  background-color: #007a7c; 
   color: #ffffff;
   border: none;
   padding: 0.75rem 0;
@@ -66,7 +66,7 @@
 }
 
 .proceed-btn:hover {
-  background-color: #1d4ed8; /* blue-700 */
+  background-color: #005f61; 
 }
 
 .payment-image-container {

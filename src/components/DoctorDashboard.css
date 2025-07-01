@@ -88,12 +88,12 @@
 }
 
 .chat-button {
-  background-color: #3182ce;
+  background: #007a7c;
   color: white;
 }
 
 .chat-button:hover {
-  background-color: #2c5282;
+  background: #005f61;
 }
 
 .view-records {

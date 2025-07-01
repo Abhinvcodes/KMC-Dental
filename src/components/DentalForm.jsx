@@ -78,19 +78,12 @@ const DentalForm = () => {
 
   return (
     <div className="dental-form-container">
-      <div className="header">
-        <span
-          className="home-icon"
-          onClick={() => navigate('/')}
-          style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}
-        >
-          🏠
-        </span>
-        <h1 style={{ display: 'inline', marginLeft: '10px' }}>Online Dental Consultation Form</h1>
+      <div className="dental-form-header">
+        <span className="form-title" style={{ textAlign: 'center'}}>Dental Consultation Form</span>
       </div>
 
       <p className="subheading">
-        Simply complete the below form and attach a minimum of 3 clear photos as specified. Our Tooth Doctor Dentists will be in touch with feedback, advice, and options for you.
+        Simply complete the below form and attach a minimum of 3 clear photos as specified. Our Dentists will be in touch with feedback, advice, and options for you.
       </p>
 
       <form onSubmit={handleSubmit}>

@@ -2,6 +2,56 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./Front.css";
 import { AuthContext } from "../context/AuthContext";
+import Button from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
+
+const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+  width: 62,
+  height: 34,
+  padding: 7,
+  '& .MuiSwitch-switchBase': {
+    margin: 1,
+    padding: 0,
+    transform: 'translateX(6px)',
+    '&.Mui-checked': {
+      color: '#fff',
+      transform: 'translateX(22px)',
+      '& .MuiSwitch-thumb:before': {
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+          '#fff',
+        )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+      },
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: '#aab4be',
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    backgroundColor: '#001e3c',
+    width: 32,
+    height: 32,
+    '&::before': {
+      content: "''",
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      left: 0,
+      top: 0,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+        '#fff',
+      )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+    },
+  },
+  '& .MuiSwitch-track': {
+    opacity: 1,
+    backgroundColor: '#aab4be',
+    borderRadius: 20 / 2,
+  },
+}));
 
 const Front = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,7 +78,6 @@ const Front = () => {
     }
   };
 
-
   const scrollToHowCanWeHelp = () => {
     const helpSection = document.getElementById("how-can-we-help");
     if (helpSection) {
@@ -36,97 +85,31 @@ const Front = () => {
     }
   };
 
+  // ... all your handler functions remain unchanged ...
 
-  const handleCavitiesClick = () => {
-    navigate('/Cavity');
-  };
-
-  const handleToothacheClick = () => {
-    navigate('/Toothache');
-  };
-
-  const handleToothSensitivityClick = () => {
-    navigate('/ToothSensitivity');
-  };
-
-  const handleGumClick = () => {
-    navigate('/Gum');
-  };
-
-  const handleAbscessClick = () => {
-    navigate('/Abscess');
-  };
-
-  const handleFracturesClick = () => {
-    navigate('/Fractures');
-  };
-
-  const handleErosionClick = () => {
-    navigate('/Erosion');
-  };
-
-  const handleGrindingClick = () => {
-    navigate('/Grinding');
-  };
-
-  const handleImpactedWisdomClick = () => {
-    navigate('/ImpactedWisdom');
-  };
-
-  const handleMalocclusionClick = () => {
-    navigate('/Malocclusion');
-  };
-
-  const handleBrokenTeethClick = () => {
-    navigate('/BrokenTeeth');
-  };
-
-  const handleUlcersClick = () => {
-    navigate('/Ulcers');
-  };
-
-  const handleStainedClick = () => {
-    navigate('/Stained');
-  };
-
-  const handleXerostomiaClick = () => {
-    navigate('/Xerostomia');
-  };
-
-  const handleInfectionClick = () => {
-    navigate('/Infection');
-  };
-
-  const handleLooseTeethClick = () => {
-    navigate('/LooseTeeth');
-  };
-
-  const handleDentalTraumaClick = () => {
-    navigate('/DentalTrauma');
-  };
-
-  const handleRootCanalClick = () => {
-    navigate('/RootCanal');
-  };
-
-  const handleTMJDisordersClick = () => {
-    navigate('/TMJDisorders');
-  };
-
-  const handleHypoplasiaClick = () => {
-    navigate('/Hypoplasia');
-  };
-
-  const handlePaymentScreenClick = () => {
-    navigate('/PaymentScreen ');
-  };
-  const handleDentalFormClick = () => {
-    navigate('/DentalForm');
-  };
-
-  const handleDentistConsultationPageClick = () => {
-    navigate('/DentistConsultationPage');
-  };
+  const handleCavitiesClick = () => { navigate('/Cavity'); };
+  const handleToothacheClick = () => { navigate('/Toothache'); };
+  const handleToothSensitivityClick = () => { navigate('/ToothSensitivity'); };
+  const handleGumClick = () => { navigate('/Gum'); };
+  const handleAbscessClick = () => { navigate('/Abscess'); };
+  const handleFracturesClick = () => { navigate('/Fractures'); };
+  const handleErosionClick = () => { navigate('/Erosion'); };
+  const handleGrindingClick = () => { navigate('/Grinding'); };
+  const handleImpactedWisdomClick = () => { navigate('/ImpactedWisdom'); };
+  const handleMalocclusionClick = () => { navigate('/Malocclusion'); };
+  const handleBrokenTeethClick = () => { navigate('/BrokenTeeth'); };
+  const handleUlcersClick = () => { navigate('/Ulcers'); };
+  const handleStainedClick = () => { navigate('/Stained'); };
+  const handleXerostomiaClick = () => { navigate('/Xerostomia'); };
+  const handleInfectionClick = () => { navigate('/Infection'); };
+  const handleLooseTeethClick = () => { navigate('/LooseTeeth'); };
+  const handleDentalTraumaClick = () => { navigate('/DentalTrauma'); };
+  const handleRootCanalClick = () => { navigate('/RootCanal'); };
+  const handleTMJDisordersClick = () => { navigate('/TMJDisorders'); };
+  const handleHypoplasiaClick = () => { navigate('/Hypoplasia'); };
+  const handlePaymentScreenClick = () => { navigate('/PaymentScreen '); };
+  const handleDentalFormClick = () => { navigate('/DentalForm'); };
+  const handleDentistConsultationPageClick = () => { navigate('/DentistConsultationPage'); };
 
   const handleLogout = () => {
     logout();
@@ -150,9 +133,7 @@ const Front = () => {
             <li className="nav-item" onClick={() => navigate('/Login')}>Login</li>
           )}
         </ul>
-           <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-          {darkMode ? "⚪" : "⚫"}
-        </button>
+        {/* Dark mode toggle removed */}
       </nav>
 
       {/* Hero Section */}
@@ -197,83 +178,83 @@ const Front = () => {
       <section id="key-services" className="key-services">
         <h2>Common Dental Issues</h2>
         <div className="services-grid">
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Cavities (Dental Caries)</h3>
             <button onClick={handleCavitiesClick}>Go to Cavities Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Toothache</h3>
             <button onClick={handleToothacheClick}>Go to Toothache Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Sensitivity</h3>
             <button onClick={handleToothSensitivityClick}>Go to Tooth Sensitivity Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Gum Disease (Periodontal Disease)</h3>
             <button onClick={handleGumClick}>Go to Gum Disease Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Abscess</h3>
             <button onClick={handleAbscessClick}>Go to Tooth Abscess Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Fractures (Cracked Tooth)</h3>
             <button onClick={handleFracturesClick}>Go to Tooth Fractures Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Erosion</h3>
             <button onClick={handleErosionClick}>Go to Tooth Erosion Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Teeth Grinding (Bruxism)</h3>
             <button onClick={handleGrindingClick}>Go to Bruxism Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Impacted Wisdom Teeth</h3>
             <button onClick={handleImpactedWisdomClick}>Go to Impacted Wisdom Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Malocclusion (Misaligned Teeth)</h3>
             <button onClick={handleMalocclusionClick}>Go to Malocclusion Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Chipped or Broken Teeth</h3>
             <button onClick={handleBrokenTeethClick}>Go to Broken Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Oral Ulcers or Sores</h3>
             <button onClick={handleUlcersClick}>Go to Sores Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Stained or Discolored Teeth</h3>
             <button onClick={handleStainedClick}>Go to Discolored Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Dry Mouth (Xerostomia)</h3>
             <button onClick={handleXerostomiaClick}>Go to Xerostomia Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Tooth Infection</h3>
             <button onClick={handleInfectionClick}>Go to Tooth Infection Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Loose Teeth</h3>
             <button onClick={handleLooseTeethClick}>Go to Loose Teeth Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Dental Trauma</h3>
             <button onClick={handleDentalTraumaClick}>Go to Dental Trauma Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Root Canal Infections</h3>
             <button onClick={handleRootCanalClick}>Go to Root Canal Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>TMJ Disorders</h3>
             <button onClick={handleTMJDisordersClick}>Go to TMJ Disorders Page</button>
           </div>
-          <div className="service-card" style={{ backgroundColor: '#cce7ff', padding: '10px', borderRadius: '15px' }}>
+          <div className="service-card" style={{ backgroundColor: '#b7dcfc', padding: '10px', borderRadius: '15px' }}>
             <h3>Enamel Hypoplasia</h3>
             <button onClick={handleHypoplasiaClick}>Go to Enamel Hypoplasia Page</button>
           </div>

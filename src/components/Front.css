@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background:linear-gradient(135deg, #80deea,  #e0f7fa);
+  background:#f0fbfd;
   color: #333;
   transition: background 0.3s, color 0.3s;
 }
@@ -10,6 +10,9 @@ body {
 .dark-mode {
   background: linear-gradient(135deg, #1a1a1a, #333);
   color: #ffffff;
+}
+.dark-mode .service-card {
+  color: #000000; /* Ensure text is white */
 }
 
 .app {
@@ -70,7 +73,7 @@ body:not(.dark-mode) .app {
 /* Hero Section */
 .hero {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 50px;
   padding: 50px;
@@ -109,28 +112,6 @@ body:not(.dark-mode) .app {
   margin-bottom: 30px;
 }
 
-.search-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search-bar input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-bar button {
-  padding: 10px 20px;
-  background: #00796b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .cta-button {
   padding: 15px 30px;
   background: #00796b;
@@ -141,6 +122,9 @@ body:not(.dark-mode) .app {
   font-size: 16px;
 }
 
+.cta-button:hover {
+  background-color: #005f61; 
+}
 .hero-image {
   position: relative;
 }
@@ -185,7 +169,7 @@ body:not(.dark-mode) .app {
 }
 
 .feature-card {
-  background: #cce7ff;
+  background: #b7dcfc;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -254,14 +238,14 @@ body:not(.dark-mode) .app {
 .sticky-cta {
   padding: 15px 30px;
   background: #fff;
-  color: #00796b;
+  color: #007a7c;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
 }
 .sticky-cta:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #005f61; /* Darker shade on hover */
   color:white;
 }
 .contact-info {
@@ -284,7 +268,7 @@ body:not(.dark-mode) .app {
 }
 
 .dental-care-heading {
-  background: linear-gradient(135deg, #80deea, #00796b);
+  background: linear-gradient(135deg, #00a794, #00796b);
 }
 
 .how-can-we-help {

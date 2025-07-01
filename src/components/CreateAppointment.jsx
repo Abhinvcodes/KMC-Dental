@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import './AdminPage.css';
 
 const CreateAppointment = ({
-  departments = {}, // default to empty object
+  departments = {},
   consultations = [],
   setConsultations = () => {}
 }) => {
@@ -20,8 +21,8 @@ const CreateAppointment = ({
     e.preventDefault();
     if (window.confirm('Are you sure you want to create this appointment?')) {
       const newId = Date.now();
-      setConsultations([...consultations, { 
-        ...newAppointment, 
+      setConsultations([...consultations, {
+        ...newAppointment,
         id: newId,
         status: 'Scheduled'
       }]);
@@ -31,7 +32,25 @@ const CreateAppointment = ({
 
   return (
     <div className="app admin-page">
-      <h1 className="admin-header">Create New Appointment</h1>
+      <header className="admin-header-wrapper">
+        <div className="admin-header-row">
+          <h1 className="admin-header">Create New Appointment</h1>
+        </div>
+        <nav className="admin-nav-links">
+          <Button color="black" variant="text" onClick={() => navigate('/doctor-dashboard')}>
+            Dashboard
+          </Button>
+          <Button color="black" variant="text" onClick={() => navigate('/admin')}>
+            Consultation
+          </Button>
+          <Button color="black" variant="text" onClick={() => navigate('/departments')}>
+            Departments
+          </Button>
+          <Button color="black" variant="text" onClick={() => navigate('/createappointment')}>
+            Create Appointment
+          </Button>
+        </nav>
+      </header>
       <section className="appointment-form">
         <h2>Create Appointment</h2>
         <form onSubmit={handleSubmit}>

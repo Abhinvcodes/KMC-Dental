@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import './AdminPage.css';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const initialConsultations = [
   {
@@ -30,6 +35,7 @@ const ConsultationPage = () => {
     time: '',
   });
   const [editingConsultation, setEditingConsultation] = useState(null);
+  const navigate = useNavigate();
 
   const deleteConsultation = (id) => {
     if (window.confirm('Are you sure you want to delete this consultation?')) {
@@ -37,7 +43,8 @@ const ConsultationPage = () => {
     }
   };
 
-  const editConsultation = (consultation) => {
+  const editConsultation = (id) => {
+    const consultation = consultations.find(c => c.id === id);
     setEditingConsultation(consultation);
     setNewAppointment(consultation);
   };
@@ -64,7 +71,43 @@ const ConsultationPage = () => {
 
   return (
     <div className="app admin-page">
-      <h1 className="admin-header">Consultation Management</h1>
+      {/* Header with title */}
+      <header className="admin-header-wrapper">
+        <div className="admin-header-row">
+          <h1 className="admin-header">Consultation Management</h1>
+        </div>
+        <nav className="admin-nav-links">
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/doctor-dashboard')}
+          >
+            Dashboard
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/admin')}
+          >
+            Consultation
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/departments')}
+          >
+            Departments
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/createappointment')}
+          >
+            Create Appointment
+          </Button>
+        </nav>
+      </header>
+
       {/* Consultations Table */}
       <section className="consultation-table">
         <h2>Consultations</h2>
@@ -88,8 +131,22 @@ const ConsultationPage = () => {
                 <td>{c.date}</td>
                 <td>{c.time || '--'}</td>
                 <td>
-                  <button onClick={() => editConsultation(c)}>✎</button>
-                  <button onClick={() => deleteConsultation(c.id)}>🗑</button>
+                  <IconButton
+                    aria-label="edit consultation"
+                    onClick={() => editConsultation(c.id)}
+                    color="primary"
+                    size="small"
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete consultation"
+                    onClick={() => deleteConsultation(c.id)}
+                    color="error"
+                    size="small"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </td>
               </tr>
             ))}

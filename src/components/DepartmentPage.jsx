@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import './AdminPage.css';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const initialDepartments = {
   Cardiology: ['Dr. Smith', 'Dr. Johnson'],
@@ -12,62 +17,86 @@ const DepartmentPage = () => {
   const [newDepartment, setNewDepartment] = useState('');
   const [editingDepartment, setEditingDepartment] = useState(null);
   const [editDeptName, setEditDeptName] = useState('');
-  const [newDoctor, setNewDoctor] = useState({}); // { Cardiology: '', ... }
+  const [newDoctor, setNewDoctor] = useState({});
+  const navigate = useNavigate();
 
   const addDepartment = () => {
-    if (!newDepartment.trim()) return;
-    if (departments[newDepartment]) return;
-    if (window.confirm(`Are you sure you want to add department "${newDepartment}"?`)) {
-      setDepartments({ ...departments, [newDepartment]: [] });
-      setNewDepartment('');
-    }
-  };
-
-  const deleteDepartment = (dept) => {
-    if (window.confirm(`Are you sure you want to delete department "${dept}"?`)) {
-      const updated = { ...departments };
-      delete updated[dept];
-      setDepartments(updated);
-    }
+    if (newDepartment.trim() === '') return;
+    if (departments[newDepartment]) return alert("Department already exists");
+    setDepartments({ ...departments, [newDepartment]: [] });
+    setNewDepartment('');
   };
 
   const editDepartmentName = (oldName, newName) => {
-    if (!newName.trim() || departments[newName]) return;
-    if (window.confirm(`Are you sure you want to rename "${oldName}" to "${newName}"?`)) {
-      const updated = { ...departments };
-      updated[newName] = updated[oldName];
-      delete updated[oldName];
-      setDepartments(updated);
+    if (newName.trim() === '' || oldName === newName) {
       setEditingDepartment(null);
-      setEditDeptName('');
+      return;
     }
+    const updatedDepartments = { ...departments };
+    updatedDepartments[newName] = updatedDepartments[oldName];
+    delete updatedDepartments[oldName];
+    setDepartments(updatedDepartments);
+    setEditingDepartment(null);
+  };
+
+  const deleteDepartment = (dept) => {
+    const updatedDepartments = { ...departments };
+    delete updatedDepartments[dept];
+    setDepartments(updatedDepartments);
   };
 
   const addDoctor = (dept) => {
-    const doctorName = (newDoctor[dept] || '').trim();
-    if (!doctorName) return;
-    if (departments[dept].includes(doctorName)) return;
-    if (window.confirm(`Are you sure you want to add doctor "${doctorName}" to "${dept}"?`)) {
-      setDepartments({
-        ...departments,
-        [dept]: [...departments[dept], doctorName]
-      });
-      setNewDoctor({ ...newDoctor, [dept]: '' });
-    }
+    const doctorName = newDoctor[dept];
+    if (!doctorName || doctorName.trim() === '') return;
+
+    const updatedDoctors = [...departments[dept], doctorName.trim()];
+    setDepartments({ ...departments, [dept]: updatedDoctors });
+    setNewDoctor({ ...newDoctor, [dept]: '' });
   };
 
   const deleteDoctor = (dept, doctor) => {
-    if (window.confirm(`Are you sure you want to delete doctor "${doctor}" from "${dept}"?`)) {
-      setDepartments({
-        ...departments,
-        [dept]: departments[dept].filter(d => d !== doctor)
-      });
-    }
+    const updatedDoctors = departments[dept].filter((d) => d !== doctor);
+    setDepartments({ ...departments, [dept]: updatedDoctors });
   };
 
   return (
     <div className="app admin-page">
-      <h1 className="admin-header">Department Management</h1>
+      <header className="admin-header-wrapper">
+        <div className="admin-header-row">
+          <h1 className="admin-header">Department Management</h1>
+        </div>
+        <nav className="admin-nav-links">
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/doctor-dashboard')}
+          >
+            Dashboard
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/admin')}
+          >
+            Consultation
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/departments')}
+          >
+            Departments
+          </Button>
+          <Button
+            color="black"
+            variant="text"
+            onClick={() => navigate('/createappointment')}
+          >
+            Create Appointment
+          </Button>
+        </nav>
+      </header>
+
       <section className="department-management">
         <h2>Departments</h2>
         <div className="add-department">
@@ -94,16 +123,40 @@ const DepartmentPage = () => {
                 <div className="department-actions">
                   {editingDepartment === dept ? (
                     <>
-                      <button onClick={() => editDepartmentName(dept, editDeptName)}>✓</button>
-                      <button onClick={() => setEditingDepartment(null)}>✕</button>
+                      <IconButton
+                        aria-label="save"
+                        onClick={() => editDepartmentName(dept, editDeptName)}
+                        color="primary"
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        aria-label="cancel"
+                        onClick={() => setEditingDepartment(null)}
+                        color="error"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => {
-                        setEditingDepartment(dept);
-                        setEditDeptName(dept);
-                      }}>✎</button>
-                      <button onClick={() => deleteDepartment(dept)}>🗑</button>
+                      <IconButton
+                        aria-label="edit"
+                        onClick={() => {
+                          setEditingDepartment(dept);
+                          setEditDeptName(dept);
+                        }}
+                        color="primary"
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => deleteDepartment(dept)}
+                        color="error"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
                     </>
                   )}
                 </div>
@@ -129,13 +182,14 @@ const DepartmentPage = () => {
                     <li key={doctor} className="doctor-item">
                       <span className="doctor-badge">MD</span>
                       {doctor}
-                      <button
-                        className="delete-doctor-btn"
+                      <IconButton
+                        aria-label="delete doctor"
                         onClick={() => deleteDoctor(dept, doctor)}
-                        type="button"
+                        color="error"
+                        size="small"
                       >
-                        🗑
-                      </button>
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
                     </li>
                   ))}
                 </ul>

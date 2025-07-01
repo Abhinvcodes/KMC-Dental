@@ -1,7 +1,7 @@
 /* Page layout */
 .dentist-consultation-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #e0f7fa, #80deea);
+  background:#f0fbfd;
   padding: 4rem 1rem;
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -45,7 +45,7 @@
 
 /* Dentist Card */
 .dentist-card {
-  background-color: #ffffff;
+  background-color: #b7dcfc;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -73,7 +73,7 @@
 
 .dentist-card button {
   margin-top: 1rem;
-  background-color: #00796b;
+  background-color: #007a7c;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -83,7 +83,7 @@
 }
 
 .dentist-card button:hover {
-  background-color: #005f56;
+  background-color: #005f61;  
 }
 
 /* Modals Shared */
