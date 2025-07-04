@@ -1,56 +1,396 @@
-.container {
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    color: white;
-    padding: 20px;
-    position: relative;
+/* General Styles */
+.broken-teeth-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #e3f2fd;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-    z-index: 1;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  header {
-    position: relative;
-    z-index: 2;
-    display: flex;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, #007FAE, #21b6e7);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin: 0;
+}
+
+.nav-item {
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-item:hover {
+  color: #b3e6fa;
+  transform: scale(1.05);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.menu-toggle:hover {
+  transform: rotate(90deg);
+}
+
+/* Background and Content */
+.broken-teeth-bg {
+  min-height: calc(100vh - 70px);
+  width: 100%;
+  background-image: url('/images/ulcersbg.webp'), linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
+  background-size: cover, cover;
+  background-position: center, center;
+  background-blend-mode: overlay;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.broken-teeth-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 127, 174, 0.5), rgba(33, 182, 231, 0.3));
+  z-index: 1;
+}
+
+.broken-teeth-content-container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.broken-teeth-card {
+  background: rgba(255, 255, 255, 0.98);
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 127, 174, 0.15);
+  padding: 40px;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.broken-teeth-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #007FAE;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.broken-teeth-title::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: #21b6e7;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.broken-teeth-description {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.broken-teeth-section {
+  margin: 30px 0;
+}
+
+.broken-teeth-section-title {
+  font-size: 1.8rem;
+  color: #007FAE;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.broken-teeth-section p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.broken-teeth-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.broken-teeth-section ul li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.broken-teeth-section ul li:before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #21b6e7;
+  font-size: 1.3rem;
+}
+
+.broken-teeth-image {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 127, 174, 0.2);
+  transition: transform 0.3s;
+}
+
+.broken-teeth-image:hover {
+  transform: scale(1.02);
+}
+
+.cta-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 15px 40px;
+  background: #007FAE;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+  background: #21b6e7;
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0, 127, 174, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .broken-teeth-bg {
+    padding: 40px 15px;
+  }
+
+  .broken-teeth-card {
+    padding: 30px;
+  }
+
+  .broken-teeth-title {
+    font-size: 2.2rem;
+  }
+
+  .broken-teeth-description {
+    font-size: 1.2rem;
+  }
+
+  .broken-teeth-section-title {
+    font-size: 1.6rem;
+  }
+
+  .broken-teeth-section p, .broken-teeth-section ul li {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
-  
-  .header-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .home-link, .external-link {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-  }
-  
-  .content {
-    position: relative;
-    z-index: 2;
-    margin-top: 20px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .broken-teeth-image {
-    width: 100%;
-    max-width: 400px;
+
+  .menu-toggle {
     display: block;
-    margin: 0 auto 20px;
-    border-radius: 10px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
   }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    background: #007FAE;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-item {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+
+  .broken-teeth-title {
+    font-size: 2rem;
+  }
+
+  .broken-teeth-description {
+    font-size: 1.1rem;
+  }
+
+  .broken-teeth-section-title {
+    font-size: 1.5rem;
+  }
+
+  .broken-teeth-section p, .broken-teeth-section ul li {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+  }
+
+  .menu-toggle {
+    font-size: 1.5rem;
+  }
+
+  .broken-teeth-bg {
+    padding: 30px 10px;
+  }
+
+  .broken-teeth-card {
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .broken-teeth-title {
+    font-size: 1.8rem;
+  }
+
+  .broken-teeth-description {
+    font-size: 1rem;
+  }
+
+  .broken-teeth-section-title {
+    font-size: 1.4rem;
+  }
+
+  .broken-teeth-section p, .broken-teeth-section ul li {
+    font-size: 0.95rem;
+  }
+
+  .broken-teeth-image {
+    max-width: 300px;
+  }
+
+  .cta-button {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .header-container, .broken-teeth-content-container {
+    max-width: 1600px;
+  }
+}

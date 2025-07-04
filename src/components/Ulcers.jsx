@@ -1,31 +1,141 @@
-import React from 'react';
-import './Ulcers.css'; 
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Ulcers.css";
+import { AuthContext } from "../context/AuthContext";
+import { FaTooth, FaBars } from "react-icons/fa";
 
 const Ulcers = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleBookConsultationClick = () => {
+    if (isAuthenticated) {
+      navigate("/DentalForm");
+    } else {
+      navigate("/Login");
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToKeyServices = () => {
+    navigate("/");
+    setTimeout(() => {
+      const keyServicesSection = document.getElementById("key-services");
+      if (keyServicesSection) {
+        keyServicesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToHowCanWeHelp = () => {
+    navigate("/");
+    setTimeout(() => {
+      const helpSection = document.getElementById("how-can-we-help");
+      if (helpSection) {
+        helpSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="container" style={{ backgroundImage: `url('src/components/Sensitivitybg.webp')` }}>
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link">
-            <span role="img" aria-label="home">🏠</span>
-          </a>
-          <h1>Mouth Ulcers</h1>
+    <div className="ulcers-root">
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <FaTooth className="logo-icon" /> KMC Dental Care
+          </div>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            <li className="nav-item" onClick={scrollToHowCanWeHelp}>
+              About Us
+            </li>
+            <li className="nav-item" onClick={scrollToKeyServices}>
+              Services
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>
+                  My Dashboard
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  Logout
+                </li>
+              </>
+            ) : (
+              <li className="nav-item" onClick={() => navigate("/Login")}>
+                Login
+              </li>
+            )}
+          </ul>
         </div>
       </header>
-      <section className="content">
-        {/* <img src="ulcers.jpg" alt="Mouth Ulcers" className="ulcers-image" />*/}
-        <p>
-          Mouth ulcers, also known as canker sores, are small, painful lesions that develop on the soft tissues inside the mouth, such as the gums, tongue, or inner cheeks. They are usually round or oval with a white or yellow center and a red border. While most mouth ulcers are harmless and heal on their own, they can cause discomfort and make eating or speaking difficult.
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Mouth ulcers can be caused by a variety of factors, including minor injuries from dental work, brushing too hard, or biting the inside of your cheek. Other causes include stress, hormonal changes, vitamin deficiencies (such as B12 or iron), and certain foods like citrus fruits or spicy dishes. In some cases, mouth ulcers may be linked to underlying health conditions like autoimmune diseases or gastrointestinal disorders.
-        </p>
-        <h1>Treatment and Prevention:</h1>
-        <p>
-          Most mouth ulcers heal on their own within 1-2 weeks. To relieve pain, you can use over-the-counter topical treatments or rinse your mouth with saltwater. Avoiding spicy, acidic, or rough foods can help prevent irritation. Maintaining good oral hygiene and managing stress can also reduce the frequency of ulcers. If ulcers persist for more than two weeks or are unusually large, consult a dentist or doctor for further evaluation.
-        </p>
-      </section>
+
+      {/* Main Content */}
+      <div className="ulcers-bg">
+        <div className="ulcers-overlay" />
+        <div className="ulcers-content-container">
+          <div className="ulcers-card fade-in">
+            <h1 className="ulcers-title">Mouth Ulcers</h1>
+            <p className="ulcers-description">
+              Mouth ulcers, or canker sores, are painful lesions inside the mouth that can make eating or speaking uncomfortable. Typically harmless, they heal within 1-2 weeks but may require attention if persistent.
+            </p>
+            {/* Uncomment to include an image */}
+            {/* <img
+              src="ulcers.jpg"
+              alt="Mouth Ulcers"
+              className="ulcers-image"
+            /> */}
+            <div className="ulcers-section slide-in">
+              <h2 className="ulcers-section-title">Common Causes</h2>
+              <p>
+                Mouth ulcers are commonly caused by:
+              </p>
+              <ul>
+                <li>Minor injuries from dental work or brushing too hard</li>
+                <li>Stress or hormonal changes</li>
+                <li>Vitamin deficiencies (e.g., B12 or iron)</li>
+                <li>Spicy, acidic, or rough foods</li>
+                <li>Underlying health conditions (e.g., autoimmune or gastrointestinal disorders)</li>
+              </ul>
+            </div>
+            <div className="ulcers-section slide-in">
+              <h2 className="ulcers-section-title">Treatment and Prevention</h2>
+              <p>
+                To manage and prevent mouth ulcers:
+              </p>
+              <ul>
+                <li><strong>Pain Relief:</strong> Use over-the-counter topical treatments or saltwater rinses.</li>
+                <li><strong>Avoid Irritants:</strong> Limit spicy, acidic, or rough foods.</li>
+                <li><strong>Oral Hygiene:</strong> Maintain good dental care practices.</li>
+                <li><strong>Stress Management:</strong> Reduce stress to lower ulcer frequency.</li>
+                <li><strong>Medical Evaluation:</strong> Consult a dentist for persistent or large ulcers.</li>
+              </ul>
+              <p>
+                Seek professional care if ulcers last over two weeks or are unusually severe.
+              </p>
+            </div>
+            <button className="cta-button" onClick={handleBookConsultationClick}>
+              Book a Consultation
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

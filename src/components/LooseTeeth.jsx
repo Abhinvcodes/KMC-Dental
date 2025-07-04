@@ -1,31 +1,141 @@
-import React from 'react';
-import './LooseTeeth.css'; 
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LooseTeeth.css";
+import { AuthContext } from "../context/AuthContext";
+import { FaTooth, FaBars } from "react-icons/fa";
 
 const LooseTeeth = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleBookConsultationClick = () => {
+    if (isAuthenticated) {
+      navigate("/DentalForm");
+    } else {
+      navigate("/Login");
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToKeyServices = () => {
+    navigate("/");
+    setTimeout(() => {
+      const keyServicesSection = document.getElementById("key-services");
+      if (keyServicesSection) {
+        keyServicesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToHowCanWeHelp = () => {
+    navigate("/");
+    setTimeout(() => {
+      const helpSection = document.getElementById("how-can-we-help");
+      if (helpSection) {
+        helpSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="container" style={{ backgroundImage: `url('src/components/toothachebg.webp')` }}>
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link">
-            <span role="img" aria-label="home">🏠</span>
-          </a>
-          <h1>Loose Teeth</h1>
+    <div className="loose-teeth-root">
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <FaTooth className="logo-icon" /> KMC Dental Care
+          </div>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            <li className="nav-item" onClick={scrollToHowCanWeHelp}>
+              About Us
+            </li>
+            <li className="nav-item" onClick={scrollToKeyServices}>
+              Services
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>
+                  My Dashboard
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  Logout
+                </li>
+              </>
+            ) : (
+              <li className="nav-item" onClick={() => navigate("/Login")}>
+                Login
+              </li>
+            )}
+          </ul>
         </div>
       </header>
-      <section className="content">
-         {/*<img src="looseteeth.jpg" alt="Loose Teeth" className="loose-teeth-image" />*/}
-        <p>
-          Loose teeth are a common dental issue that can occur in both children and adults. In children, loose teeth are a natural part of losing baby teeth. However, in adults, loose teeth can indicate underlying dental problems such as gum disease, injury, or bone loss. If left untreated, loose teeth can lead to tooth loss and other complications.
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Loose teeth in adults are often caused by advanced gum disease (periodontitis), which damages the supporting bone and tissues. Trauma or injury to the mouth, teeth grinding (bruxism), and osteoporosis can also lead to loose teeth. Poor oral hygiene, smoking, and certain medical conditions like diabetes can increase the risk of developing loose teeth.
-        </p>
-        <h1>Treatment and Prevention:</h1>
-        <p>
-          Treatment for loose teeth depends on the underlying cause. For gum disease, deep cleaning (scaling and root planing) or surgical procedures may be necessary. A splint or bite guard can help stabilize loose teeth caused by grinding. In severe cases, tooth extraction and replacement with implants or dentures may be required. To prevent loose teeth, maintain good oral hygiene, avoid smoking, and visit your dentist regularly for check-ups and cleanings.
-        </p>
-      </section>
+
+      {/* Main Content */}
+      <div className="loose-teeth-bg">
+        <div className="loose-teeth-overlay" />
+        <div className="loose-teeth-content-container">
+          <div className="loose-teeth-card fade-in">
+            <h1 className="loose-teeth-title">Loose Teeth</h1>
+            <p className="loose-teeth-description">
+              Loose teeth in adults can signal underlying dental issues like gum disease, injury, or bone loss. While natural in children during the loss of baby teeth, loose teeth in adults require prompt attention to prevent tooth loss and complications.
+            </p>
+            {/* Uncomment to include an image */}
+            {/* <img
+              src="looseteeth.jpg"
+              alt="Loose Teeth"
+              className="loose-teeth-image"
+            /> */}
+            <div className="loose-teeth-section slide-in">
+              <h2 className="loose-teeth-section-title">Common Causes</h2>
+              <p>
+                Loose teeth in adults are commonly caused by:
+              </p>
+              <ul>
+                <li>Advanced gum disease (periodontitis)</li>
+                <li>Trauma or injury to the mouth</li>
+                <li>Teeth grinding (bruxism)</li>
+                <li>Osteoporosis</li>
+                <li>Poor oral hygiene, smoking, or medical conditions like diabetes</li>
+              </ul>
+            </div>
+            <div className="loose-teeth-section slide-in">
+              <h2 className="loose-teeth-section-title">Treatment and Prevention</h2>
+              <p>
+                To treat and prevent loose teeth:
+              </p>
+              <ul>
+                <li><strong>Treat Gum Disease:</strong> Deep cleaning or surgical procedures.</li>
+                <li><strong>Stabilize Teeth:</strong> Use a splint or bite guard for grinding.</li>
+                <li><strong>Extraction/Replacement:</strong> Consider implants or dentures in severe cases.</li>
+                <li><strong>Maintain Oral Hygiene:</strong> Brush and floss regularly.</li>
+                <li><strong>Regular Dental Visits:</strong> Get check-ups and cleanings.</li>
+              </ul>
+              <p>
+                Avoiding smoking and managing health conditions can also reduce the risk of loose teeth.
+              </p>
+            </div>
+            <button className="cta-button" onClick={handleBookConsultationClick}>
+              Book a Consultation
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -39,7 +39,6 @@ const App = () => {
   return (
     <Router>
       <div>
-        <h1 className="dental-care-heading">KMC Dental Care</h1>
         <Routes>
           <Route path="/" element={<Front />} />
           <Route path="/Cavity" element={<Cavity />} />

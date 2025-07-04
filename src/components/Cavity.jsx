@@ -1,39 +1,77 @@
 import React from 'react';
 import './Cavity.css';
-import IconButton from '@mui/material/IconButton';
+import { Card, CardContent, Typography, Grid, IconButton, Divider } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 
-const Cavity = () => {
-  return (
-    <div className="container">
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link" aria-label="Home">
-            <IconButton color="primary" aria-label="home" size="large">
-              <HomeIcon style={{ color: 'white', fontSize: 32 }} />
-            </IconButton>
-          </a>
-          <h1>Cavities</h1>
-        </div>
-      </header>
-      <section className="content">
-        {/* <img src="src/components/cavityteeth.jpg" alt="Cavities" className="cavity-image" /> */}
-        <p>
-          A cavity, also known as dental caries or tooth decay, is a permanent damage to the hard surface of the tooth that develops into tiny holes or openings. It is caused by the interaction of sugars and starches from food with bacteria in the mouth. When these bacteria digest the sugars, they produce acids that erode the protective enamel on the tooth. Over time, repeated acid attacks can lead to the breakdown of enamel, eventually forming cavities.
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Poor oral hygiene is one of the leading causes of cavities. Failing to brush and floss regularly allows plaque—a sticky film of bacteria—to build up on teeth. Consuming sugary or starchy foods and beverages, such as candy, soft drinks, or processed snacks, further fuels the bacteria responsible for acid production. Dry mouth, where there is reduced saliva production, also increases cavity risk because saliva helps wash away food particles and neutralize acid.
-        </p>
-        <h1>Age Groups More Affected:</h1>
-        <p>
-          Cavities can affect people of all ages, but children and teenagers are particularly vulnerable due to their diet, developing teeth, and sometimes insufficient brushing habits. Older adults are also at a higher risk because of gum recession and medication-related dry mouth. Additionally, toddlers and young children are prone to "baby bottle tooth decay" if they consume sugary drinks or milk in a bottle for prolonged periods.
-          <br /><br />
-          By practicing good oral hygiene, limiting sugary foods and drinks, and visiting a dentist regularly, cavities can be prevented or managed in their early stages.
-        </p>
-      </section>
-    </div>
-  );
+const handleBookConsultationClick = () => {
+  window.location.href = '/book-appointment';
 };
+
+const Cavity = () => (
+  <div className="cavity-root">
+    {/* Header Section */}
+    <header className="cavity-header-section">
+      <h1 className="dental-care-heading">KMC Dental Care</h1>
+      <a href="/" aria-label="Home" className="cavity-home-btn">
+        <IconButton color="primary" aria-label="home" size="large">
+          <HomeIcon sx={{ fontSize: 32 }} />
+        </IconButton>
+      </a>
+    </header>
+
+    {/* Main Content */}
+    <Grid container justifyContent="center" alignItems="center" className="cavity-main-grid">
+      <Grid item xs={12} sm={10} md={8} lg={6}>
+        <Card className="cavity-card" elevation={8}>
+          <CardContent>
+            <Typography variant="h3" component="h1" className="cavity-title">
+              Understanding Cavities
+            </Typography>
+            <Divider sx={{ my: 3, backgroundColor: '#009e60' }} />
+            <Typography variant="body1" className="cavity-text" gutterBottom>
+              A cavity, also known as dental caries or tooth decay, is permanent damage to the tooth's hard surface, resulting in tiny holes or openings. It occurs when bacteria in the mouth interact with sugars and starches from food, producing acids that erode the protective enamel. Over time, these acid attacks can break down enamel, forming cavities.
+            </Typography>
+            <Typography variant="h5" className="cavity-section-title" gutterBottom>
+              Common Causes
+            </Typography>
+            <Typography variant="body1" className="cavity-text" gutterBottom>
+              Poor oral hygiene is a primary cause of cavities. Inadequate brushing and flossing allow plaque—a sticky bacterial film—to accumulate on teeth. Sugary or starchy foods and drinks, like candy, soda, or processed snacks, fuel acid-producing bacteria. Dry mouth, caused by reduced saliva production, also heightens cavity risk, as saliva neutralizes acids and clears food particles.
+            </Typography>
+            <Typography variant="h5" className="cavity-section-title" gutterBottom>
+              Age Groups Most Affected
+            </Typography>
+            <Typography variant="body1" className="cavity-text">
+              Cavities can affect anyone, but children and teenagers are particularly susceptible due to their diets, developing teeth, and sometimes inconsistent brushing habits. Older adults face higher risks due to gum recession and medication-induced dry mouth. Toddlers are also prone to "baby bottle tooth decay" from prolonged exposure to sugary drinks or milk.
+            </Typography>
+            <button
+              className="cavity-cta-button"
+              onClick={handleBookConsultationClick}
+            >
+              Book an Appointment
+            </button>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+
+    {/* Footer */}
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="contact-info">
+          <p>📞 +1-800-HEALTH</p>
+          <p>✉️ support@healthcareplus.com</p>
+        </div>
+        <div className="social-proof">
+          <p>👨‍⚕️ 10,000+ Patients Helped</p>
+          <p>✅ 99% Satisfaction Rate</p>
+          <p><b>Opening Hours</b><br />
+            Mon-Sat: 10 am - 5:00 pm<br />
+            Sun: CLOSED
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+);
 
 export default Cavity;

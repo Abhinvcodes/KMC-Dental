@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, loading } = useContext(AuthContext);
+     const { isAuthenticated, loading } = useContext(AuthContext);
 
-    // DEV BYPASS: Add this code to bypass auth in development
+ // DEV BYPASS: Add this code to bypass auth in development
     if (import.meta.env.DEV && localStorage.getItem('bypassAuth') === 'true') {
         console.log('DEV MODE: Authentication bypassed');
         return children;

@@ -3,7 +3,7 @@ import React from "react";
 
 const DentistCard = ({ dentist }) => {
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden p-6">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden p-6" >
       <img
         src={dentist.profilePicture}
         alt={dentist.name}

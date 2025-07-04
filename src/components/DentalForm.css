@@ -1,155 +1,339 @@
-.dental-form-container {
-  max-width: 800px;
+/* General Styles */
+.dental-form-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #e3f2fd;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, #007FAE, #21b6e7);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f0fbfd;
-  color: black;
-  font-family: Arial, sans-serif;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  width: 100%;
+  position: relative;
 }
 
-/* Green header for the form */
-.dental-form-header {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* This centers all child elements horizontally */
-  background: linear-gradient(90deg, #249799 60%, #0e9c9f 100%);
-  color: #fff;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 18px;
-  position: relative; /* For absolute positioning if needed */
-}
-
-.dental-form-header .form-title {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.dental-form-header .home-link {
-  background: #007a7c;
-  color: #fff;
-  padding: 7px 20px;
-  font-weight: 600;
-  font-size: 15px;
-  text-decoration: none;
-  box-shadow: 0 1px 4px rgba(0,122,124,0.10);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  border: none;
-  outline: none;
-}
-.dental-form-header .home-link:hover {
-  background: #005f61;
-  color: #fff;
-}
-
-.subheading {
-  text-align: center;
-  font-size: 16px;
-  color: #424242;
-  margin-bottom: 20px;
-}
-
-.note {
-  text-align: center;
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-row {
-  display: flex;
-  gap: 15px;
-}
-
-
-.form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-textarea {
-  resize: vertical;
-}
-
-input[type="file"] {
-  padding: 5px;
-}
-
-.checkbox-group {
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: transform 0.3s;
 }
 
-.checkbox-group label {
-  font-size: 14px;
-  color: #333;
+.logo:hover {
+  transform: scale(1.05);
 }
 
-.submit-button {
-  background-color: #007a7c;
-  color: white;
-  padding: 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
+.logo-icon {
+  font-size: 2.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin: 0;
+}
+
+.nav-item {
   cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s, transform 0.3s;
 }
 
-.submit-button:hover {
-  background-color: #005f61;
+.nav-item:hover {
+  color: #b3e6fa;
+  transform: scale(1.05);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.menu-toggle:hover {
+  transform: rotate(90deg);
+}
+
+/* Background and Content */
+.dental-form-bg {
+  min-height: calc(100vh - 70px);
+  width: 100%;
+  background-image: url('/images/bgimgg.webp'), linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
+  background-size: cover, cover;
+  background-position: center, center;
+  background-blend-mode: overlay;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.dental-form-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 127, 174, 0.5), rgba(33, 182, 231, 0.3));
+  z-index: 1;
+}
+
+.dental-form-content-container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.dental-form-card {
+  background: rgba(255, 255, 255, 0.98);
+  color: #222;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 127, 174, 0.15);
+  padding: 40px;
+  margin: 20px 0;
+}
+
+.dental-form-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #007FAE;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.dental-form-title::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: #21b6e7;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dental-form-description {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b3e6fa;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.file-input:hover {
+  border-color: #007FAE;
+}
+
+.cta-button {
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 127, 174, 0.2);
+}
+
+.cta-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .error {
-  color: #c62828;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
 }
 
-/* Responsive for mobile */
-@media (max-width: 600px) {
-  .dental-form-header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 12px 8px;
-    text-align: center;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dental-form-bg {
+    padding: 40px 15px;
   }
-  .dental-form-header .form-title {
-    font-size: 18px;
+
+  .dental-form-card {
+    padding: 30px;
   }
-  .form-row {
+
+  .dental-form-title {
+    font-size: 2.2rem;
+  }
+
+  .dental-form-description {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+
+  .nav-links {
+    display: none;
     flex-direction: column;
-    gap: 0;
+    width: 100%;
+    padding: 20px;
+    background: #007FAE;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-item {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+
+  .dental-form-title {
+    font-size: 2rem;
+  }
+
+  .dental-form-description {
+    font-size: 1.1rem;
+  }
+
+  .dental-form-card {
+    padding: 20px;
+  }
+
+  .cta-button {
+    font-size: 1.1rem;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+  }
+
+  .menu-toggle {
+    font-size: 1.5rem;
+  }
+
+  .dental-form-bg {
+    padding: 30px 10px;
+  }
+
+  .dental-form-card {
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .dental-form-title {
+    font-size: 1.8rem;
+  }
+
+  .dental-form-description {
+    font-size: 1rem;
+  }
+
+  .file-input {
+    font-size: 0.95rem;
+  }
+
+  .cta-button {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+
+  .error {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .header-container,
+  .dental-form-content-container {
+    max-width: 1600px;
   }
 }

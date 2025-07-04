@@ -102,7 +102,6 @@ const Login = () => {
           </div>
         </div>
       )}
-
       {!isSignup ? (
         !isForgotPassword ? (
           <form onSubmit={handleLogin}>

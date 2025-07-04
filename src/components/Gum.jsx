@@ -1,31 +1,141 @@
-import React from 'react';
-import './Gum.css'; // Assuming you have a CSS file for styling
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Gum.css";
+import { AuthContext } from "../context/AuthContext";
+import { FaTooth, FaBars } from "react-icons/fa";
 
 const Gum = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleBookConsultationClick = () => {
+    if (isAuthenticated) {
+      navigate("/DentalForm");
+    } else {
+      navigate("/Login");
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToKeyServices = () => {
+    navigate("/");
+    setTimeout(() => {
+      const keyServicesSection = document.getElementById("key-services");
+      if (keyServicesSection) {
+        keyServicesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToHowCanWeHelp = () => {
+    navigate("/");
+    setTimeout(() => {
+      const helpSection = document.getElementById("how-can-we-help");
+      if (helpSection) {
+        helpSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="container" style={{ backgroundImage: `url('src/components/toothachebg.webp')` }}>
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link">
-            <span role="img" aria-label="home">🏠</span>
-          </a>
-          <h1>Gum Disease</h1>
+    <div className="gum-root">
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <FaTooth className="logo-icon" /> KMC Dental Care
+          </div>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            <li className="nav-item" onClick={scrollToHowCanWeHelp}>
+              About Us
+            </li>
+            <li className="nav-item" onClick={scrollToKeyServices}>
+              Services
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>
+                  My Dashboard
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  Logout
+                </li>
+              </>
+            ) : (
+              <li className="nav-item" onClick={() => navigate("/Login")}>
+                Login
+              </li>
+            )}
+          </ul>
         </div>
       </header>
-      <section className="content">
-      {/*   <img src="gum.jpg" alt="Gum Disease" className="gum-image" />*/}
-        <p>
-          Gum disease, also known as periodontal disease, is an infection of the tissues that surround and support your teeth. It is a major cause of tooth loss in adults and is often painless, so you may not know you have it. Gum disease ranges from simple gum inflammation (gingivitis) to serious damage to the soft tissue and bone that support the teeth (periodontitis).
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Gum disease is primarily caused by the buildup of plaque, a sticky film of bacteria that forms on teeth. Poor oral hygiene, smoking, hormonal changes, diabetes, and certain medications can increase the risk of gum disease. Genetics and a weakened immune system can also play a role in the development of periodontal disease.
-        </p>
-        <h1>Prevention and Treatment:</h1>
-        <p>
-          To prevent gum disease, brush your teeth twice a day, floss daily, and visit your dentist regularly for cleanings and check-ups. Quitting smoking and managing conditions like diabetes can also reduce your risk. Treatment for gum disease may include deep cleaning (scaling and root planing), medications, or surgery in severe cases. Early detection and treatment are key to preventing complications.
-        </p>
-      </section>
+
+      {/* Main Content */}
+      <div className="gum-bg">
+        <div className="gum-overlay" />
+        <div className="gum-content-container">
+          <div className="gum-card fade-in">
+            <h1 className="gum-title">Gum Disease</h1>
+            <p className="gum-description">
+              Gum disease, or periodontal disease, is an infection of the tissues supporting your teeth. Ranging from gingivitis to periodontitis, it’s a major cause of tooth loss in adults and often painless, making early detection critical.
+            </p>
+            {/* Uncomment to include an image */}
+            {/* <img
+              src="gum.jpg"
+              alt="Gum Disease"
+              className="gum-image"
+            /> */}
+            <div className="gum-section slide-in">
+              <h2 className="gum-section-title">Common Causes</h2>
+              <p>
+                Gum disease is commonly caused by:
+              </p>
+              <ul>
+                <li>Buildup of plaque, a sticky bacterial film on teeth</li>
+                <li>Poor oral hygiene</li>
+                <li>Smoking or tobacco use</li>
+                <li>Hormonal changes, diabetes, or certain medications</li>
+                <li>Genetics or a weakened immune system</li>
+              </ul>
+            </div>
+            <div className="gum-section slide-in">
+              <h2 className="gum-section-title">Prevention and Treatment</h2>
+              <p>
+                To prevent and treat gum disease:
+              </p>
+              <ul>
+                <li><strong>Maintain Oral Hygiene:</strong> Brush twice daily and floss daily.</li>
+                <li><strong>Regular Dental Visits:</strong> Get cleanings and check-ups routinely.</li>
+                <li><strong>Quit Smoking:</strong> Reduce risk by avoiding tobacco.</li>
+                <li><strong>Manage Health Conditions:</strong> Control diabetes or other contributing factors.</li>
+                <li><strong>Treatments:</strong> Deep cleaning, medications, or surgery for severe cases.</li>
+              </ul>
+              <p>
+                Early detection through regular dental visits is key to preventing complications.
+              </p>
+            </div>
+            <button className="cta-button" onClick={handleBookConsultationClick}>
+              Book a Consultation
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

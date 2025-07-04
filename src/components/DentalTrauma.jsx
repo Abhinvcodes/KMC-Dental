@@ -1,31 +1,140 @@
-import React from 'react';
-import './DentalTrauma.css'; // Assuming you have a CSS file for styling
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./DentalTrauma.css";
+import { AuthContext } from "../context/AuthContext";
+import { FaTooth, FaBars } from "react-icons/fa";
 
 const DentalTrauma = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleBookConsultationClick = () => {
+    if (isAuthenticated) {
+      navigate("/DentalForm");
+    } else {
+      navigate("/Login");
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToKeyServices = () => {
+    navigate("/");
+    setTimeout(() => {
+      const keyServicesSection = document.getElementById("key-services");
+      if (keyServicesSection) {
+        keyServicesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToHowCanWeHelp = () => {
+    navigate("/");
+    setTimeout(() => {
+      const helpSection = document.getElementById("how-can-we-help");
+      if (helpSection) {
+        helpSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="container" style={{ backgroundImage: `url('src/components/ulcersbg.webp')` }}>
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link">
-            <span role="img" aria-label="home">🏠</span>
-          </a>
-          <h1>Dental Trauma</h1>
+    <div className="dental-trauma-root">
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <FaTooth className="logo-icon" /> KMC Dental Care
+          </div>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            <li className="nav-item" onClick={scrollToHowCanWeHelp}>
+              About Us
+            </li>
+            <li className="nav-item" onClick={scrollToKeyServices}>
+              Services
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>
+                  My Dashboard
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  Logout
+                </li>
+              </>
+            ) : (
+              <li className="nav-item" onClick={() => navigate("/Login")}>
+                Login
+              </li>
+            )}
+          </ul>
         </div>
       </header>
-      <section className="content">
-         {/*<img src="dentaltrauma.jpg" alt="Dental Trauma" className="dental-trauma-image" />*/}
-        <p>
-          Dental trauma refers to injuries to the teeth, gums, or surrounding structures caused by accidents, sports injuries, falls, or other impacts. Common types of dental trauma include chipped or broken teeth, knocked-out teeth, and injuries to the soft tissues of the mouth. Immediate dental care is crucial to prevent further damage and ensure proper healing.
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Dental trauma is often caused by accidents such as falls, car crashes, or sports-related injuries. Biting down on hard objects, physical altercations, or even chewing hard foods can also lead to dental injuries. Children and athletes are particularly at risk due to their active lifestyles and participation in contact sports.
-        </p>
-        <h1>Treatment and Prevention:</h1>
-        <p>
-          Treatment for dental trauma depends on the type and severity of the injury. For chipped or broken teeth, dental bonding, crowns, or veneers may be used to restore the tooth. A knocked-out tooth should be placed back in its socket or stored in milk or saline until you can see a dentist. Soft tissue injuries may require stitches or antibiotics. To prevent dental trauma, wear a mouthguard during sports, avoid chewing hard objects, and practice good oral hygiene to keep teeth strong.
-        </p>
-      </section>
+
+      {/* Main Content */}
+      <div className="dental-trauma-bg">
+        <div className="dental-trauma-overlay" />
+        <div className="dental-trauma-content-container">
+          <div className="dental-trauma-card fade-in">
+            <h1 className="dental-trauma-title">Dental Trauma</h1>
+            <p className="dental-trauma-description">
+              Dental trauma involves injuries to the teeth, gums, or surrounding structures due to accidents or impacts. Prompt dental care is essential to prevent complications and ensure proper healing.
+            </p>
+            {/* Uncomment to include an image */}
+            {/* <img
+              src="dentaltrauma.jpg"
+              alt="Dental Trauma"
+              className="dental-trauma-image"
+            /> */}
+            <div className="dental-trauma-section slide-in">
+              <h2 className="dental-trauma-section-title">Common Causes</h2>
+              <p>
+                Dental trauma is commonly caused by:
+              </p>
+              <ul>
+                <li>Accidents such as falls, car crashes, or sports injuries</li>
+                <li>Biting down on hard objects</li>
+                <li>Physical altercations</li>
+                <li>Chewing hard foods like ice or candy</li>
+                <li>High-risk activities, especially in children and athletes</li>
+              </ul>
+            </div>
+            <div className="dental-trauma-section slide-in">
+              <h2 className="dental-trauma-section-title">Treatment Options</h2>
+              <p>
+                Treatment depends on the injury’s severity:
+              </p>
+              <ul>
+                <li><strong>Dental Bonding or Crowns:</strong> For chipped or broken teeth.</li>
+                <li><strong>Reimplantation:</strong> For knocked-out teeth, place back in socket or store in milk/saline until seeing a dentist.</li>
+                <li><strong>Stitches or Antibiotics:</strong> For soft tissue injuries.</li>
+                <li><strong>Extraction and Replacement:</strong> If the tooth cannot be saved, consider implants or bridges.</li>
+              </ul>
+              <p>
+                Prevent dental trauma by wearing mouthguards during sports, avoiding hard objects, and maintaining strong teeth through good oral hygiene.
+              </p>
+            </div>
+            <button className="cta-button" onClick={handleBookConsultationClick}>
+              Book a Consultation
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

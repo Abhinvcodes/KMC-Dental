@@ -1,31 +1,140 @@
-import React from 'react';
-import './BrokenTeeth.css'; // Assuming you have a CSS file for styling
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./BrokenTeeth.css";
+import { AuthContext } from "../context/AuthContext";
+import { FaTooth, FaBars } from "react-icons/fa";
 
 const BrokenTeeth = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleBookConsultationClick = () => {
+    if (isAuthenticated) {
+      navigate("/DentalForm");
+    } else {
+      navigate("/Login");
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToKeyServices = () => {
+    navigate("/");
+    setTimeout(() => {
+      const keyServicesSection = document.getElementById("key-services");
+      if (keyServicesSection) {
+        keyServicesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const scrollToHowCanWeHelp = () => {
+    navigate("/");
+    setTimeout(() => {
+      const helpSection = document.getElementById("how-can-we-help");
+      if (helpSection) {
+        helpSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="container" style={{ backgroundImage: `url('src/components/ulcersbg.webp')` }}>
-      <header>
-        <div className="header-content">
-          <a href="/" className="home-link">
-            <span role="img" aria-label="home">🏠</span>
-          </a>
-          <h1>Broken Teeth</h1>
+    <div className="broken-teeth-root">
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <FaTooth className="logo-icon" /> KMC Dental Care
+          </div>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            <li className="nav-item" onClick={scrollToHowCanWeHelp}>
+              About Us
+            </li>
+            <li className="nav-item" onClick={scrollToKeyServices}>
+              Services
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>
+                  My Dashboard
+                </li>
+                <li className="nav-item" onClick={handleLogout}>
+                  Logout
+                </li>
+              </>
+            ) : (
+              <li className="nav-item" onClick={() => navigate("/Login")}>
+                Login
+              </li>
+            )}
+          </ul>
         </div>
       </header>
-      <section className="content">
-      {/*   <img src="brokenteeth.jpg" alt="Broken Teeth" className="broken-teeth-image" />*/}
-        <p>
-          A broken tooth is a common dental issue that can result from trauma, biting on hard objects, or untreated cavities weakening the tooth structure. Depending on the severity, a broken tooth can cause pain, sensitivity, and difficulty chewing. It is important to seek dental care promptly to prevent further damage or infection.
-        </p>
-        <h1>Common Causes:</h1>
-        <p>
-          Broken teeth are often caused by accidents, sports injuries, or falls. Biting down on hard foods like ice, nuts, or candy can also lead to fractures. Untreated cavities or large fillings can weaken the tooth, making it more prone to breaking. Teeth grinding (bruxism) and aging restorations like crowns or fillings can also contribute to tooth fractures.
-        </p>
-        <h1>Treatment Options:</h1>
-        <p>
-          Treatment for a broken tooth depends on the extent of the damage. For minor cracks, dental bonding or polishing may be sufficient. For more severe fractures, a crown or veneer may be needed to restore the tooth's shape and function. If the break exposes the pulp, a root canal may be required. In cases where the tooth cannot be saved, extraction followed by a dental implant or bridge may be recommended.
-        </p>
-      </section>
+
+      {/* Main Content */}
+      <div className="broken-teeth-bg">
+        <div className="broken-teeth-overlay" />
+        <div className="broken-teeth-content-container">
+          <div className="broken-teeth-card fade-in">
+            <h1 className="broken-teeth-title">Broken Teeth</h1>
+            <p className="broken-teeth-description">
+              A broken tooth is a common dental issue caused by trauma, biting on hard objects, or weakened tooth structure. Prompt treatment is essential to prevent pain, sensitivity, or infection.
+            </p>
+            {/* Uncomment to include an image */}
+            {/* <img
+              src="brokenteeth.jpg"
+              alt="Broken Teeth"
+              className="broken-teeth-image"
+            /> */}
+            <div className="broken-teeth-section slide-in">
+              <h2 className="broken-teeth-section-title">Common Causes</h2>
+              <p>
+                Broken teeth often result from:
+              </p>
+              <ul>
+                <li>Accidents, sports injuries, or falls</li>
+                <li>Biting on hard foods like ice, nuts, or candy</li>
+                <li>Untreated cavities or large fillings weakening the tooth</li>
+                <li>Teeth grinding (bruxism)</li>
+                <li>Aging restorations like crowns or fillings</li>
+              </ul>
+            </div>
+            <div className="broken-teeth-section slide-in">
+              <h2 className="broken-teeth-section-title">Treatment Options</h2>
+              <p>
+                Treatment depends on the severity of the damage:
+              </p>
+              <ul>
+                <li><strong>Dental Bonding:</strong> For minor cracks or chips.</li>
+                <li><strong>Crown or Veneer:</strong> Restores shape and function for severe fractures.</li>
+                <li><strong>Root Canal:</strong> Required if the pulp is exposed.</li>
+                <li><strong>Extraction:</strong> If the tooth cannot be saved, followed by an implant or bridge.</li>
+              </ul>
+              <p>
+                Prevent broken teeth by avoiding hard foods, wearing mouthguards during sports, and maintaining regular dental check-ups.
+              </p>
+            </div>
+            <button className="cta-button" onClick={handleBookConsultationClick}>
+              Book a Consultation
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
