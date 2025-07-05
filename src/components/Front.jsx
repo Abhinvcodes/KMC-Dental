@@ -9,7 +9,7 @@ const Front = () => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useContext(AuthContext);
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -75,8 +75,14 @@ const Front = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button className="hamburger" onClick={toggleHamburger} aria-label="Toggle hamburger menu">
+            <FaBars
+                className="hamburger-icon"
+                style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none" 
+                }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
@@ -113,10 +119,7 @@ const Front = () => {
           </button>
         </div>
         <div className="hero-image">
-          <img
-            src="./images/bgimg.webp"
-            alt="Dental Care"
-          />
+          <img src="./images/bgimg.webp" alt="Dental Care" />
           <div className="floating-tooth" aria-label="Floating tooth icon">
             🦷
           </div>
@@ -231,13 +234,17 @@ const Front = () => {
           </div>
         </div>
         <div className="footer-bottom">
-    <p>
-      © 2025 KMC Dental Care. All Rights Reserved. &nbsp;|&nbsp;
-      <a href="/privacy-policy" style={{ color: "#21b6e7" }}>Privacy Policy</a>
-      &nbsp;|&nbsp;
-      <a href="/terms" style={{ color: "#21b6e7" }}>Terms of Service</a>
-    </p>
-  </div>
+          <p>
+            © 2025 KMC Dental Care. All Rights Reserved. |{" "}
+            <a href="/privacy-policy" style={{ color: "#21b6e7" }}>
+              Privacy Policy
+            </a>{" "}
+            |{" "}
+            <a href="/terms" style={{ color: "#21b6e7" }}>
+              Terms of Service
+            </a>
+          </p>
+        </div>
       </footer>
     </div>
   );

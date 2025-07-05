@@ -1,3 +1,4 @@
+// ToothSensitivity.jsx
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ToothSensitivity.css";
@@ -58,10 +59,16 @@ const ToothSensitivity = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button className="hamburger" onClick={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen} type="button">
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none"
+              }}
+            />
           </button>
-          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <ul className={`nav-links${isMenuOpen ? " open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
               About Us
             </li>

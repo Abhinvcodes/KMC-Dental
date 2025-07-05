@@ -58,10 +58,23 @@ const DentalTrauma = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          {/* Hamburger */}
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            onClick={toggleMenu}
+            type="button"
+          >
+            <FaBars
+                className="hamburger-icon"
+                style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none" 
+                }}
+            />
           </button>
-          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <ul className={`nav-links${isMenuOpen ? " open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
               About Us
             </li>

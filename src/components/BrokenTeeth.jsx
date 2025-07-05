@@ -9,7 +9,7 @@ const BrokenTeeth = () => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useContext(AuthContext);
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -58,8 +58,14 @@ const BrokenTeeth = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button className="hamburger" onClick={toggleHamburger} aria-label="Toggle hamburger menu">
+            <FaBars
+                className="hamburger-icon"
+                style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none" 
+                }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>

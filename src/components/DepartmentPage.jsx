@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
-import "./AdminPage.css";
+import "./DepartmentPage.css";
 
 const initialDepartments = {
   Cardiology: ["Dr. Smith", "Dr. Johnson"],
@@ -63,7 +63,7 @@ const DepartmentPage = () => {
     setDepartments({ ...departments, [dept]: updatedDoctors });
   };
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -91,7 +91,7 @@ const DepartmentPage = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/"); // Updated to match other components
     setIsMenuOpen(false);
   };
 
@@ -103,8 +103,20 @@ const DepartmentPage = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            onClick={toggleHamburger}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            type="button"
+          >
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none",
+              }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
@@ -144,9 +156,17 @@ const DepartmentPage = () => {
                 onChange={(e) => setNewDepartment(e.target.value)}
                 placeholder="New department name"
               />
-              <button className="cta-button" onClick={addDepartment}>
+              <Button
+                className="cta-button"
+                onClick={addDepartment}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#007dab !important",
+                  "&:hover": { backgroundColor: "#007399 !important" },
+                }}
+              >
                 Add Department
-              </button>
+              </Button>
             </div>
             <div className="department-grid">
               {Object.entries(departments).map(([dept, doctors]) => (
@@ -166,14 +186,20 @@ const DepartmentPage = () => {
                           <IconButton
                             aria-label="save"
                             onClick={() => editDepartmentName(dept, editDeptName)}
-                            color="primary"
+                            sx={{
+                              color: "#007dab",
+                              "&:hover": { color: "#007399" },
+                            }}
                           >
                             <EditIcon fontSize="small" />
                           </IconButton>
                           <IconButton
                             aria-label="cancel"
                             onClick={() => setEditingDepartment(null)}
-                            color="error"
+                            sx={{
+                              color: "#c62828",
+                              "&:hover": { color: "#b71c1c" },
+                            }}
                           >
                             <DeleteIcon fontSize="small" />
                           </IconButton>
@@ -186,17 +212,25 @@ const DepartmentPage = () => {
                               setEditingDepartment(dept);
                               setEditDeptName(dept);
                             }}
-                            color="primary"
+                            sx={{
+                              color: "#007dab",
+                              "&:hover": { color: "#007399" },
+                            }}
                           >
                             <EditIcon fontSize="small" />
                           </IconButton>
                           <IconButton
-                            aria-label="delete"
-                            onClick={() => deleteDepartment(dept)}
-                            color="error"
-                          >
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
+                        aria-label="delete consultation"
+                        onClick={() => deleteConsultation(c.id)}
+                        size="small"
+                        sx={{
+                          color: "#DC143C",
+                          backgroundColor: "#DC143C !important",
+                          "&:hover": { color: "#b71c1c", backgroundColor: "#B22222 !important" },
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
                         </>
                       )}
                     </div>
@@ -210,23 +244,31 @@ const DepartmentPage = () => {
                       }
                       placeholder="New doctor name"
                     />
-                    <button
+                    <Button
                       className="add-doctor-btn cta-button"
                       onClick={() => addDoctor(dept)}
-                      type="button"
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#007dab !important",
+                        "&:hover": { backgroundColor: "#007399 !important" },
+                      }}
                     >
                       Add Doctor
-                    </button>
+                    </Button>
                     <ul className="doctor-list">
                       {doctors.map((doctor) => (
                         <li key={doctor} className="doctor-item">
                           <span className="doctor-badge">MD</span>
                           {doctor}
-                          <IconButton
-                            aria-label="delete doctor"
-                            onClick={() => deleteDoctor(dept, doctor)}
-                            color="error"
+                           <IconButton
+                            aria-label="delete consultation"
+                            onClick={() => deleteConsultation(c.id)}
                             size="small"
+                            sx={{
+                              color: "#DC143C",
+                              backgroundColor: "#DC143C !important",
+                              "&:hover": { color: "#b71c1c", backgroundColor: "#B22222 !important" },
+                            }}
                           >
                             <DeleteIcon fontSize="small" />
                           </IconButton>

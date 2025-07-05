@@ -1,10 +1,9 @@
-/* UserDashboard.css */
-
 /* General Styles */
 .dashboard-root {
   min-height: 100vh;
   width: 100%;
-  background: #e3f2fd;
+  background: #e3f2fd !important; /* Theme: body background */
+  color: #333; /* Theme: body color */
   overflow-x: hidden;
   font-family: "Roboto", sans-serif;
 }
@@ -43,7 +42,7 @@
 /* Header */
 .header {
   width: 100%;
-  background: linear-gradient(90deg, #007FAE, #21b6e7);
+  background: #0075a0 !important; /* Theme: header background */
   color: #fff;
   position: sticky;
   top: 0;
@@ -99,32 +98,35 @@
   transform: scale(1.05);
 }
 
-.menu-toggle {
+.hamburger {
   display: none;
-  background: none;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
   border: none;
-  color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* Theme: hamburger size */
+  width: 30px; /* Theme: hamburger width */
+  height: 30px; /* Theme: hamburger height */
+  padding: 5px;
+  line-height: 1;
   cursor: pointer;
-  transition: transform 0.3s;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.3s;
 }
 
-.menu-toggle:hover {
+.hamburger:hover {
+  background: #007399 !important; /* Theme: button hover background */
   transform: rotate(90deg);
 }
 
 /* Background and Content */
 .dashboard-bg {
-  min-height: calc(100vh - 70px); /* Adjust for header height */
+  min-height: calc(100vh - 70px);
   width: 100%;
-  background-image: url('/images/dentalformbg.webp'), linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
-  background-size: cover, cover;
-  background-position: center, center;
-  background-blend-mode: overlay;
+  background: linear-gradient(135deg, #007FAE, #21b6e7); /* Theme: hero background */
   position: relative;
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
@@ -185,8 +187,8 @@
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(90deg, #007FAE 60%, #21b6e7 100%);
-  color: #fff;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -194,17 +196,17 @@
 }
 
 .cta-button:hover {
-  background: linear-gradient(90deg, #21b6e7 60%, #007FAE 100%);
+  background: #007399 !important; /* Theme: button hover background */
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 127, 174, 0.2);
 }
 
 .logout-btn {
-  background: linear-gradient(90deg, #c62828 60%, #e57373 100%);
+  background: #c62828 !important; /* Keep logout button distinct */
 }
 
 .logout-btn:hover {
-  background: linear-gradient(90deg, #e57373 60%, #c62828 100%);
+  background: #b71c1c !important; /* Darker red on hover */
 }
 
 .dashboard-tabs {
@@ -435,7 +437,7 @@
     align-items: center;
   }
 
-  .menu-toggle {
+  .hamburger {
     display: block;
     position: absolute;
     top: 15px;
@@ -447,7 +449,7 @@
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    background: #007FAE;
+    background: #0075a0; /* Theme: header background */
     position: absolute;
     top: 100%;
     left: 0;
@@ -525,8 +527,11 @@
     font-size: 2.2rem;
   }
 
-  .menu-toggle {
-    font-size: 1.5rem;
+  .hamburger {
+    font-size: 1.5rem; /* Theme: hamburger small font-size */
+    width: 15px; /* Theme: hamburger small width */
+    height: 20px; /* Theme: hamburger small height */
+    padding: 4px; /* Theme: hamburger small padding */
   }
 
   .dashboard-bg {

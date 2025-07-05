@@ -1,10 +1,9 @@
-/* AdminPage.css */
-
 /* General Styles */
 .admin-page-root {
   min-height: 100vh;
   width: 100%;
-  background: #e3f2fd;
+  background: #e3f2fd !important; /* Theme: body background */
+  color: #333; /* Theme: body color */
   overflow-x: hidden;
   font-family: "Roboto", sans-serif;
 }
@@ -43,7 +42,7 @@
 /* Header */
 .header {
   width: 100%;
-  background: linear-gradient(90deg, #007FAE, #21b6e7);
+  background: #0075a0 !important; /* Theme: header background */
   color: #fff;
   position: sticky;
   top: 0;
@@ -99,43 +98,49 @@
   transform: scale(1.05);
 }
 
-.menu-toggle {
+.hamburger {
   display: none;
-  background: none;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
   border: none;
-  color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* Theme: hamburger size */
+  width: 30px; /* Theme: hamburger width */
+  height: 30px; /* Theme: hamburger height */
+  padding: 5px;
+  line-height: 1;
   cursor: pointer;
-  transition: transform 0.3s;
+  border-radius: 0; /* Rectangular shape */
+  transition: background 0.3s, transform 0.3s;
 }
 
-.menu-toggle:hover {
+.hamburger:hover {
+  background: #007399 !important; /* Theme: button hover background */
   transform: rotate(90deg);
+}
+
+.hamburger-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.hamburger.open .hamburger-icon {
+  transform: rotate(180deg); /* Matches Gum component */
 }
 
 /* Background and Content */
 .admin-bg {
-  min-height: calc(100vh - 70px); /* Adjust for header height */
+  min-height: calc(100vh - 70px);
   width: 100%;
-  background-image: url('/images/dentalformbg.webp'), linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
-  background-size: cover, cover;
-  background-position: center, center;
-  background-blend-mode: overlay;
+  background: #e3f2fd !important; /* Theme: body background */
   position: relative;
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
 .admin-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 127, 174, 0.5), rgba(33, 182, 231, 0.3));
-  z-index: 1;
+  display: none; /* Remove overlay to ensure #e3f2fd is visible */
 }
 
 .admin-content-container {
@@ -204,10 +209,17 @@
   background: #e3f2fd;
 }
 
-.add-department button.cta-button {
+.add-department .MuiButton-root.cta-button {
   padding: 10px 18px;
   font-size: 15px;
   font-weight: 600;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
+  border-radius: 0; /* Rectangular shape */
+}
+
+.add-department .MuiButton-root.cta-button:hover {
+  background: #007399 !important; /* Theme: button hover background */
 }
 
 .department-grid {
@@ -262,11 +274,13 @@
 }
 
 .department-actions .MuiIconButton-root {
-  color: #007FAE;
+  font-size: 0.9rem; /* Smaller icon size */
+  padding: 4px; /* Reduced padding for compact look */
+  border-radius: 0 !important; /* Rectangular shape */
 }
 
-.department-actions .MuiIconButton-root:hover {
-  color: #21b6e7;
+.department-actions .MuiIconButton-root svg {
+  font-size: 0.9rem; /* Ensure icon itself is smaller */
 }
 
 .doctor-management {
@@ -294,9 +308,16 @@
   background: #e3f2fd;
 }
 
-.doctor-management .add-doctor-btn {
+.doctor-management .add-doctor-btn.MuiButton-root.cta-button {
   padding: 8px 12px;
   font-size: 13px;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
+  border-radius: 0; /* Rectangular shape */
+}
+
+.doctor-management .add-doctor-btn.MuiButton-root.cta-button:hover {
+  background: #007399 !important; /* Theme: button hover background */
 }
 
 .doctor-list {
@@ -328,129 +349,28 @@
 }
 
 .doctor-item .MuiIconButton-root {
-  color: #c62828;
+  font-size: 0.9rem; /* Smaller icon size */
+  padding: 4px; /* Reduced padding for compact look */
+  border-radius: 0 !important; /* Rectangular shape */
 }
 
-.doctor-item .MuiIconButton-root:hover {
-  color: #e57373;
-}
-
-/* Consultation Table */
-.consultation-table {
-  margin-bottom: 48px;
-  overflow-x: auto;
-  background: #fff;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 127, 174, 0.1);
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.consultation-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.consultation-table th,
-.consultation-table td {
-  border: 1px solid #b3e6fa;
-  padding: 12px 10px;
-  text-align: left;
-  font-size: 15px;
-}
-
-.consultation-table th {
-  background: #007FAE;
-  color: white;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.consultation-table td .MuiIconButton-root {
-  color: #007FAE;
-}
-
-.consultation-table td .MuiIconButton-root:hover {
-  color: #21b6e7;
-}
-
-.consultation-table td .MuiIconButton-root[color="error"] {
-  color: #c62828;
-}
-
-.consultation-table td .MuiIconButton-root[color="error"]:hover {
-  color: #e57373;
-}
-
-/* Appointment Form */
-.appointment-form {
-  background: #fff;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 127, 174, 0.1);
-  margin-bottom: 36px;
-}
-
-.appointment-form form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.appointment-form input,
-.appointment-form select {
-  background: #f8fafb;
-  border: 1px solid #b3e6fa;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  transition: border 0.2s;
-}
-
-.appointment-form input:focus,
-.appointment-form select:focus {
-  border: 1.5px solid #007FAE;
-  outline: none;
-  background: #e3f2fd;
-}
-
-.appointment-form .form-actions {
-  grid-column: span 2;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.appointment-form button.cta-button {
-  padding: 10px 20px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.appointment-form button.secondary {
-  background: linear-gradient(90deg, #c62828 60%, #e57373 100%);
-}
-
-.appointment-form button.secondary:hover {
-  background: linear-gradient(90deg, #e57373 60%, #c62828 100%);
+.doctor-item .MuiIconButton-root svg {
+  font-size: 0.9rem; /* Ensure icon itself is smaller */
 }
 
 /* CTA Button */
 .cta-button {
-  background: linear-gradient(90deg, #007FAE 60%, #21b6e7 100%);
-  color: #fff;
+  background: #007dab !important; /* Theme: button background */
+  color: #fff !important; /* Theme: button color */
   border: none;
-  border-radius: 6px;
+  border-radius: 0; /* Rectangular shape */
   cursor: pointer;
   font-weight: 600;
   transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
 }
 
 .cta-button:hover {
-  background: linear-gradient(90deg, #21b6e7 60%, #007FAE 100%);
+  background: #007399 !important; /* Theme: button hover background */
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 127, 174, 0.2);
 }
@@ -474,18 +394,34 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 360px) and (max-width: 720px) {
   .header-container {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    padding: 12px 15px;
   }
 
-  .menu-toggle {
-    display: block;
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 15px;
     right: 20px;
+    font-size: 1.6rem; /* Larger font-size for 360–720px */
+    width: 24px; /* Larger width */
+    height: 24px; /* Larger height */
+    padding: 4px; /* Consistent padding */
+  }
+
+  .hamburger-icon {
+    font-size: 1.6rem; /* Match font-size */
   }
 
   .nav-links {
@@ -493,7 +429,7 @@
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    background: #007FAE;
+    background: #0075a0;
     position: absolute;
     top: 100%;
     left: 0;
@@ -507,6 +443,7 @@
   .nav-item {
     font-size: 1.1rem;
     margin: 10px 0;
+    text-align: center;
   }
 
   .section-title {
@@ -528,37 +465,33 @@
     width: 100%;
   }
 
-  .department-card,
-  .appointment-form,
-  .consultation-table {
+  .department-card {
     padding: 12px;
-  }
-
-  .appointment-form form {
-    grid-template-columns: 1fr;
-  }
-
-  .appointment-form .form-actions {
-    grid-column: span 1;
-    flex-direction: column;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 360px) {
   .header-container {
-    padding: 12px 15px;
+    padding: 10px 12px;
   }
 
   .logo {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .logo-icon {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
-  .menu-toggle {
-    font-size: 1.5rem;
+  .hamburger {
+    font-size: 1.4rem; /* Smaller font-size for very small screens */
+    width: 18px; /* Smaller width */
+    height: 22px; /* Smaller height */
+    padding: 4px; /* Consistent padding */
+  }
+
+  .hamburger-icon {
+    font-size: 1.4rem;
   }
 
   .admin-bg {
@@ -575,23 +508,24 @@
 
   .department-header input,
   .add-department input,
-  .doctor-management input,
-  .appointment-form input,
-  .appointment-form select {
+  .doctor-management input {
     font-size: 13px;
   }
 
-  .add-department button,
-  .doctor-management .add-doctor-btn,
-  .appointment-form button.cta-button {
+  .add-department .MuiButton-root.cta-button,
+  .doctor-management .add-doctor-btn.MuiButton-root.cta-button {
     font-size: 13px;
     padding: 8px 12px;
   }
 
-  .consultation-table th,
-  .consultation-table td {
-    font-size: 13px;
-    padding: 8px 6px;
+  .department-actions .MuiIconButton-root,
+  .doctor-item .MuiIconButton-root {
+    font-size: 0.8rem; /* Smaller for very small screens */
+  }
+
+  .department-actions .MuiIconButton-root svg,
+  .doctor-item .MuiIconButton-root svg {
+    font-size: 0.8rem;
   }
 }
 

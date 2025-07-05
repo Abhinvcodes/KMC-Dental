@@ -32,7 +32,7 @@ const DentalForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -82,7 +82,7 @@ const DentalForm = () => {
         submitData.append("images", image);
       });
 
-      await consultationAPI.createConsultation(subData);
+      await consultationAPI.createConsultation(submitData);
 
       alert("Your consultation request has been submitted successfully!");
       navigate("/");
@@ -129,8 +129,20 @@ const DentalForm = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            onClick={toggleHamburger}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            type="button"
+          >
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none",
+              }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
@@ -358,18 +370,22 @@ const DentalForm = () => {
                     fullWidth
                     className="cta-button"
                     sx={{
-                      background: "#007FAE",
-                      color: "#fff",
+                      background: "#007dab !important", // Theme: button background
+                      color: "#fff !important", // Theme: button color
                       fontWeight: "bold",
                       fontSize: "1.2rem",
                       py: 1.5,
                       borderRadius: 2,
                       boxShadow: 2,
                       "&:hover": {
-                        background: "rgb(0, 104, 138)",
-                        color: "#fff",
+                        background: "#007399 !important", // Theme: button hover
+                        color: "#fff !important",
                         transform: "scale(1.05)",
                         boxShadow: "0 6px 20px rgba(0, 127, 174, 0.2)",
+                      },
+                      "&:disabled": {
+                        opacity: 0.7,
+                        cursor: "not-allowed",
                       },
                     }}
                     disabled={isSubmitting}

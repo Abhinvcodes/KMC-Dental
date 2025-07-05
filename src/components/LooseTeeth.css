@@ -41,7 +41,7 @@
 /* Header */
 .header {
   width: 100%;
-  background: linear-gradient(90deg, #007FAE, #21b6e7);
+  background: linear-gradient(90deg, #007fae, #21b6e7);
   color: #fff;
   position: sticky;
   top: 0;
@@ -77,45 +77,60 @@
   font-size: 2.5rem;
 }
 
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  background: #007dab;
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.hamburger:hover {
+  background: #007399;
+  transform: rotate(90deg);
+}
+
+.hamburger-icon {
+  font-size: 1.8rem;
+  transition: transform 0.3s ease;
+}
+
+.hamburger.open .hamburger-icon {
+  transform: rotate(45deg);
+}
+
+/* Navigation Links */
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 25px;
-  align-items: center;
+  list-style: none;
   margin: 0;
+  padding: 0;
+  gap: 20px;
 }
 
 .nav-item {
+  font-size: 1.2rem;
   cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 500;
-  transition: color 0.3s, transform 0.3s;
+  transition: color 0.3s;
 }
 
 .nav-item:hover {
-  color: #b3e6fa;
-  transform: scale(1.05);
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.menu-toggle:hover {
-  transform: rotate(90deg);
+  color: #e3f2fd;
 }
 
 /* Background and Content */
 .loose-teeth-bg {
   min-height: calc(100vh - 70px);
   width: 100%;
-  background-image: url('/images/toothachebg.webp'), linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
+  background-image: url("/images/toothachebg.webp"),
+    linear-gradient(135deg, rgba(0, 127, 174, 0.1), rgba(33, 182, 231, 0.1));
   background-size: cover, cover;
   background-position: center, center;
   background-blend-mode: overlay;
@@ -158,7 +173,7 @@
 .loose-teeth-title {
   font-size: 2.8rem;
   font-weight: 700;
-  color: #007FAE;
+  color: #007fae;
   margin-bottom: 20px;
   text-align: center;
   position: relative;
@@ -187,7 +202,7 @@
 
 .loose-teeth-section-title {
   font-size: 1.8rem;
-  color: #007FAE;
+  color: #007fae;
   margin-bottom: 15px;
   font-weight: 700;
 }
@@ -237,7 +252,7 @@
   display: block;
   margin: 30px auto 0;
   padding: 15px 40px;
-  background: #007FAE;
+  background: #007fae;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -288,8 +303,10 @@
     align-items: center;
   }
 
-  .menu-toggle {
-    display: block;
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 15px;
     right: 20px;
@@ -300,7 +317,7 @@
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    background: #007FAE;
+    background: #007fae;
     position: absolute;
     top: 100%;
     left: 0;
@@ -314,6 +331,7 @@
   .nav-item {
     font-size: 1.1rem;
     margin: 10px 0;
+    text-align: center;
   }
 
   .loose-teeth-title {
@@ -352,7 +370,13 @@
     font-size: 2.2rem;
   }
 
-  .menu-toggle {
+  .hamburger {
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+  }
+
+  .hamburger-icon {
     font-size: 1.5rem;
   }
 

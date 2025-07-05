@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
-import "./AdminPage.css";
+import "./ConsultationPage.css";
 
 const initialConsultations = [
   {
@@ -82,7 +82,7 @@ const ConsultationPage = () => {
     setEditingConsultation(null);
   };
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -110,7 +110,7 @@ const ConsultationPage = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/"); // Updated to match other components
     setIsMenuOpen(false);
   };
 
@@ -122,8 +122,20 @@ const ConsultationPage = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            onClick={toggleHamburger}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            type="button"
+          >
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none",
+              }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
@@ -177,28 +189,28 @@ const ConsultationPage = () => {
                     <td>{c.time || "--"}</td>
                     <td>
                       <IconButton
-  aria-label="edit consultation"
-  onClick={() => editConsultation(c.id)}
-  size="small"
-  sx={{
-    '&:hover svg': { color: '#005f61' }
-  }}
->
-  <EditIcon fontSize="small" sx={{ color: '#fff' }} />
-</IconButton>
-<IconButton
-  aria-label="delete consultation"
-  onClick={() => deleteConsultation(c.id)}
-  size="small"
-  sx={{
-    '&:hover svg': { color: '#a31515' }
-  }}
->
-  <DeleteIcon fontSize="small" sx={{ color: '#c62828' }} />
-</IconButton>
-
-
-
+                        aria-label="edit consultation"
+                        onClick={() => editConsultation(c.id)}
+                        size="small"
+                        sx={{
+                          color: "#007dab",
+                          "&:hover": { color: "#007399" },
+                        }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete consultation"
+                        onClick={() => deleteConsultation(c.id)}
+                        size="small"
+                        sx={{
+                          color: "#DC143C",
+                          backgroundColor: "#DC143C !important",
+                          "&:hover": { color: "#b71c1c", backgroundColor: "#B22222 !important" },
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
                     </td>
                   </tr>
                 ))}

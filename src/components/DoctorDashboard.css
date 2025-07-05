@@ -535,7 +535,6 @@
     font-size: 1rem;
   }
 }
-
 @media (min-width: 1400px) {
   .header-container,
   .doctor-dashboard-content-container {

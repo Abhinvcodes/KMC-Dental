@@ -58,10 +58,23 @@ const Abscess = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          {/* Hamburger */}
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            onClick={toggleMenu}
+            type="button"
+          >
+            <FaBars
+                className="hamburger-icon"
+                style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none" 
+                }}
+            />
           </button>
-          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <ul className={`nav-links${isMenuOpen ? " open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
               About Us
             </li>
@@ -95,13 +108,13 @@ const Abscess = () => {
             <p className="abscess-description">
               A dental abscess is a pocket of pus caused by a bacterial infection, often leading to significant discomfort. It can occur at the tooth's root (periapical abscess) or in the gums (periodontal abscess). If untreated, it may cause serious complications.
             </p>
-            <div className="abscess-section">
+            <div className="abscess-section slide-in">
               <h2 className="abscess-section-title">Common Causes</h2>
               <p>
                 Dental abscesses often result from untreated cavities, cracked teeth, or gum disease. Bacteria enter the tooth or gums, causing infection and pus buildup. Risk factors include poor oral hygiene, high-sugar diets, a weakened immune system, dental trauma, or previous dental procedures.
               </p>
             </div>
-            <div className="abscess-section">
+            <div className="abscess-section slide-in">
               <h2 className="abscess-section-title">Symptoms</h2>
               <ul>
                 <li>Severe, persistent toothache or throbbing pain</li>
@@ -112,7 +125,7 @@ const Abscess = () => {
                 <li>Difficulty swallowing or breathing (in severe cases)</li>
               </ul>
             </div>
-            <div className="abscess-section">
+            <div className="abscess-section slide-in">
               <h2 className="abscess-section-title">Treatment Options</h2>
               <p>
                 Treatment focuses on draining the abscess and eliminating the infection. Options include:

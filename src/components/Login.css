@@ -23,7 +23,7 @@ form {
 
 form h2 {
   text-align: center;
-  color: #007FAE;
+  color: #006d94;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 18px;
@@ -34,7 +34,7 @@ label {
   display: block;
   margin-bottom: 15px;
   font-weight: 500;
-  color: #007FAE;
+  color: #000000;
   font-size: 1rem;
 }
 
@@ -62,8 +62,8 @@ button {
   padding: 14px 0;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(90deg, #007FAE 60%, #21b6e7 100%);
-  color: #fff;
+  background: #007dab !important;
+  color: #fff !important;
   font-size: 1.15rem;
   font-weight: bold;
   cursor: pointer;
@@ -74,7 +74,7 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background: linear-gradient(90deg, #21b6e7 60%, #007FAE 100%);
+  background: #007399 !important;
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 6px 20px rgba(0,127,174,0.13);
 }
@@ -99,7 +99,7 @@ button:disabled {
 .signup-link,
 .back-to-login-link,
 .resend-otp-link {
-  color: #007FAE;
+  color: #000000;
   cursor: pointer;
   text-align: center;
   margin-top: 14px;

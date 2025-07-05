@@ -58,10 +58,22 @@ const Xerostomia = () => {
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            onClick={toggleMenu}
+            type="button"
+          >
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none"
+              }}
+            />
           </button>
-          <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+          <ul className={`nav-links${isMenuOpen ? " open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
               About Us
             </li>
@@ -70,17 +82,11 @@ const Xerostomia = () => {
             </li>
             {isAuthenticated ? (
               <>
-                <li className="nav-item" onClick={() => navigate("/dashboard")}>
-                  My Dashboard
-                </li>
-                <li className="nav-item" onClick={handleLogout}>
-                  Logout
-                </li>
+                <li className="nav-item" onClick={() => navigate("/dashboard")}>My Dashboard</li>
+                <li className="nav-item" onClick={handleLogout}>Logout</li>
               </>
             ) : (
-              <li className="nav-item" onClick={() => navigate("/Login")}>
-                Login
-              </li>
+              <li className="nav-item" onClick={() => navigate("/Login")}>Login</li>
             )}
           </ul>
         </div>
@@ -95,17 +101,10 @@ const Xerostomia = () => {
             <p className="xerostomia-description">
               Xerostomia, or dry mouth, occurs when salivary glands produce insufficient saliva, causing discomfort and increasing risks of cavities and gum disease. It can be temporary or chronic and often requires management.
             </p>
-            {/* Uncomment to include an image */}
-            {/* <img
-              src="xerostomia.jpg"
-              alt="Xerostomia (Dry Mouth)"
-              className="xerostomia-image"
-            /> */}
+            {/* <img src="xerostomia.jpg" alt="Xerostomia (Dry Mouth)" className="xerostomia-image" /> */}
             <div className="xerostomia-section slide-in">
               <h2 className="xerostomia-section-title">Common Causes</h2>
-              <p>
-                Xerostomia is commonly caused by:
-              </p>
+              <p>Xerostomia is commonly caused by:</p>
               <ul>
                 <li>Medications (e.g., antihistamines, antidepressants)</li>
                 <li>Dehydration or radiation therapy</li>
@@ -116,9 +115,7 @@ const Xerostomia = () => {
             </div>
             <div className="xerostomia-section slide-in">
               <h2 className="xerostomia-section-title">Treatment and Prevention</h2>
-              <p>
-                To manage and prevent xerostomia:
-              </p>
+              <p>To manage and prevent xerostomia:</p>
               <ul>
                 <li><strong>Hydration:</strong> Drink plenty of water.</li>
                 <li><strong>Saliva Stimulation:</strong> Chew sugar-free gum or use saliva substitutes.</li>

@@ -1,4 +1,4 @@
-// src/components/DentistCard.js
+//  src/components/DentistCard.js
 import React from "react";
 
 const DentistCard = ({ dentist }) => {

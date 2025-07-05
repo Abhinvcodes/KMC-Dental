@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaTooth, FaBars } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import "./AdminPage.css";
+import "./CreateAppointment.css";
 
 const CreateAppointment = ({
   departments = {},
@@ -37,7 +37,7 @@ const CreateAppointment = ({
     }
   };
 
-  const toggleMenu = () => {
+  const toggleHamburger = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -65,7 +65,7 @@ const CreateAppointment = ({
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/"); // Updated to match other components
     setIsMenuOpen(false);
   };
 
@@ -77,8 +77,20 @@ const CreateAppointment = ({
           <div className="logo">
             <FaTooth className="logo-icon" /> KMC Dental Care
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <FaBars />
+          <button
+            className={`hamburger${isMenuOpen ? " open" : ""}`}
+            onClick={toggleHamburger}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            type="button"
+          >
+            <FaBars
+              className="hamburger-icon"
+              style={{
+                transition: "transform 0.3s",
+                transform: isMenuOpen ? "rotate(180deg)" : "none",
+              }}
+            />
           </button>
           <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
             <li className="nav-item" onClick={scrollToHowCanWeHelp}>
@@ -179,16 +191,29 @@ const CreateAppointment = ({
                 required
               />
               <div className="form-actions">
-                <button type="submit" className="btn primary cta-button">
+                <Button
+                  type="submit"
+                  className="cta-button"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#007dab !important",
+                    "&:hover": { backgroundColor: "#007399 !important" },
+                  }}
+                >
                   Create Appointment
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
-                  className="btn secondary cta-button"
+                  className="cta-button secondary"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#c62828 !important",
+                    "&:hover": { backgroundColor: "#b71c1c !important" },
+                  }}
                   onClick={() => navigate("/consultations")}
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
             </form>
           </section>
